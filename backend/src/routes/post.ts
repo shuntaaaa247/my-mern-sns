@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import { Post, IPost } from "../models/Post";
-import mongoose from "mongoose";
+import mongoose, { Schema, mongo } from "mongoose";
+import { IUser, User } from "../models/User";
 
 export const postRouter = () => {
   const router: Router = Router();
@@ -90,6 +91,40 @@ export const postRouter = () => {
         })
         return res.status(200).json("いいね解除");
       }
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  })
+
+  //タイムラインの取得
+  router.get("/timeline/:id", async (req: express.Request, res: express.Response) => {
+    try {
+      const currentUser = await User.findById(req.params.id);
+      // const followingIds = currentUser?.followings;
+      const userPosts: IPost[] = await Post.find({ auther: currentUser?._id});
+
+      console.log("currentUser = ");
+      console.log(currentUser);
+      // const friendPosts = await Promise.all(followingIds?.map(async (userId: mongoose.Types.ObjectId) =>{
+      //   // console.log(`ああああuserId = ${userId}`);
+      //   return await Post.find({auther: userId});
+      // }))
+
+      const friendPosts = await Promise.all(
+        currentUser!.followings.map((friendId) => {
+          console.log("あああ")
+          console.log(friendId)
+          return Post.find({ auther: friendId }); //map内のコールバック関数でreturnを使うと、左辺の変数（定数）が配列になり、returnされた値が一つずつ入っていく。
+        })
+    )
+      
+      console.log("userPosts = ");
+      console.log(userPosts);
+      console.log("friendPosts = ");
+      console.log(friendPosts);
+
+      return res.status(200).json(userPosts.concat(...friendPosts));
+      
     } catch (err) {
       return res.status(500).json(err);
     }
