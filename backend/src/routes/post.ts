@@ -100,15 +100,10 @@ export const postRouter = () => {
   router.get("/timeline/:id", async (req: express.Request, res: express.Response) => {
     try {
       const currentUser = await User.findById(req.params.id);
-      // const followingIds = currentUser?.followings;
       const userPosts: IPost[] = await Post.find({ auther: currentUser?._id});
 
       console.log("currentUser = ");
       console.log(currentUser);
-      // const friendPosts = await Promise.all(followingIds?.map(async (userId: mongoose.Types.ObjectId) =>{
-      //   // console.log(`ああああuserId = ${userId}`);
-      //   return await Post.find({auther: userId});
-      // }))
 
       const friendPosts = await Promise.all(
         currentUser!.followings.map((friendId) => {
