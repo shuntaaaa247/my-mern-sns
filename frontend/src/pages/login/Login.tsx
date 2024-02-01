@@ -8,7 +8,7 @@ export default function Login() {
 
   const { state: authState, dispatch, } = useContext(AuthContext);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if(
