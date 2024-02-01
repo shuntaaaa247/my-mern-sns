@@ -8,7 +8,7 @@ export default function Login() {
 
   const { state: authState, dispatch, } = useContext(AuthContext);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if(
@@ -17,7 +17,7 @@ export default function Login() {
       && password.current !== undefined
       && password.current !== null
       ) {
-      await loginCall({
+        loginCall({
         email: email.current.value,
         password: password.current.value
       }, dispatch);
@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="loginWrapper">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <input type="email" placeholder="Eメール" required ref={email}/>
         <input type="password" placeholder="パスワード" required ref={password}/>
         <button>ログイン</button>
