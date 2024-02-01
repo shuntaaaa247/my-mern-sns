@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, connect, ObjectId } from "mongoose"
+import mongoose, { Schema, model } from "mongoose"
 
 export interface IPost {
   auther: mongoose.Types.ObjectId,

@@ -1,6 +1,5 @@
 import express from 'express';
 const app = express();
-const PORT = 3000; // ローカルサーバーのポート番号
 import { userRouter } from './routes/user';
 import { authRouter } from './routes/auth';
 import { postRouter } from './routes/post';
