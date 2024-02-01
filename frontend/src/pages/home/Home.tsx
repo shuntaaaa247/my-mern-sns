@@ -6,6 +6,6 @@ export default function Home() {
   return (
     <div className="homeContainer">
       <Topbar />
-    </ div>
+    </div>
   )
 }
