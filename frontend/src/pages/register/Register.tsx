@@ -3,6 +3,7 @@ import { AuthContext } from "../../state/AuthContext";
 import { useContext } from "react";
 import axios from "axios";
 import { loginCall } from "../../state/actionCalls";
+import { Link } from "react-router-dom";
 
 interface INewUserInfo {
   username: string,
@@ -43,6 +44,7 @@ export default function Register () {
       }
   }
 
+
   return(
     <div className="register">
       <div className="registerWrapper">
@@ -53,6 +55,16 @@ export default function Register () {
           <button>サインアップ</button>
           {JSON.stringify(authState)}
         </form>
+        <Link to="/login">
+          <span className="">ログインページ</span>
+        </Link>
+        <br/>
+        { authState.user 
+          ? <Link to="/">
+              <span className="">ホームへ</span>
+            </Link> 
+          : <></>
+        }
       </div>
     </div>
   )

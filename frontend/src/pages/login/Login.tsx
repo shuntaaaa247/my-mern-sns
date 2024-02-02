@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import { loginCall } from "../../state/actionCalls";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const email = useRef<HTMLInputElement>(null);
@@ -34,6 +35,16 @@ export default function Login() {
         <button>ログイン</button>
         {JSON.stringify(authState)}
         </form>
+        <Link to="/register">
+          <span className="sidebarListItemText">サインアップページ</span>
+        </Link>
+        <br/>
+        { authState.user 
+          ? <Link to="/">
+              <span className="">ホームへ</span>
+            </Link> 
+          : <></>
+        }
       </div>
     </ div>
   )
