@@ -22,7 +22,6 @@ export default function Login() {
         password: password.current.value
       }, dispatch);
 
-      console.log("あああ")
       console.log(authState);
     }
   }
