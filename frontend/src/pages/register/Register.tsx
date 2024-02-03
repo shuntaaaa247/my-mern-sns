@@ -45,28 +45,6 @@ export default function Register () {
 
 
   return(
-    // <div className="register">
-    //   <div className="registerWrapper">
-    //     <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
-    //       <input type="text" placeholder="ユーザーネーム" required ref={ username }/>
-    //       <input type="email" placeholder="Eメール" required ref={ email } />
-    //       <input type="password" placeholder="パスワード" required ref={ password } />
-    //       <button>サインアップ</button>
-    //       {JSON.stringify(authState)}
-    //     </form>
-    //     <Link to="/login">
-    //       <span className="">ログインページ</span>
-    //     </Link>
-    //     <br/>
-    //     { authState.user 
-    //       ? <Link to="/">
-    //           <span className="">ホームへ</span>
-    //         </Link> 
-    //       : <></>
-    //     }
-    //   </div>
-    // </div>
-  
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mx-[33%] translate-y-32 shadow-2xl rounded-2xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
