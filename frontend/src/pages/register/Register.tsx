@@ -3,6 +3,7 @@ import { AuthContext } from "../../state/AuthContext";
 import { useContext } from "react";
 import axios from "axios";
 import { loginCall } from "../../state/actionCalls";
+import { Link, useNavigate } from "react-router-dom";
 
 interface INewUserInfo {
   username: string,
@@ -16,6 +17,8 @@ export default function Register () {
   const username = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,12 +43,16 @@ export default function Register () {
           email: newUserInfo.email,
           password: newUserInfo.password
         }, dispatch);
+
+        if(authState.user) {
+          navigate("/");
+        }
       }
   }
 
 
   return(
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mx-[33%] translate-y-32 shadow-2xl rounded-2xl">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mx-[33%] translate-y-24 shadow-2xl rounded-2xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Register your account
@@ -115,6 +122,12 @@ export default function Register () {
               </button>
             </div>
           </form>
+          <Link to="/login"><p className="text-center mt-8 text-sm font-medium hover:underline">すでにアカウントをお持ちですか？</p></Link>
+          {authState.user 
+            ? <Link to="/"><p className="text-center mt-2 mb-0 text-sm font-medium hover:underline">ホームへ戻りますか？</p></Link>
+            : <></>
+          }
+          
         </div>
         {/* {JSON.stringify(authState)} */}
       </div>

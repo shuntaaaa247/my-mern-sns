@@ -1,15 +1,16 @@
 import React, { useContext, useRef } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import { loginCall } from "../../state/actionCalls";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
   const { state: authState, dispatch, } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>):void => {
     e.preventDefault();
 
     if(
@@ -23,7 +24,12 @@ export default function Login() {
         password: password.current.value
       }, dispatch);
 
+      console.log("テストテスト")
       console.log(authState);
+
+      if(authState.user) {
+        navigate("/")
+      }
     }
   }
   return (
@@ -71,17 +77,28 @@ export default function Login() {
                 />
               </div>
             </div>
-
+            <p className="text-red-600 text-sm font-medium text-center">
+              {authState.error 
+                ? "メールアドレス または パスワードが間違っています"
+                : ""
+              }
+            </p>
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[15%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[10%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
               </button>
             </div>
           </form>
+          <Link to="/register"><p className="text-center mt-8 text-sm font-medium hover:underline">アカウントをお持ちではありませんか？</p></Link>
+          {authState.user 
+            ? <Link to="/"><p className="text-center mt-2 mb-0 text-sm font-medium hover:underline">ホームへ戻りますか？</p></Link>
+            : <></>
+          }
         </div>
+        {/* {JSON.stringify(authState)} */}
       </div>
   )
 }
