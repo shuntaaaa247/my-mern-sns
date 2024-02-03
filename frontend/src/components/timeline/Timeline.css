@@ -1,5 +1,9 @@
 .Timeline {
   flex: 6;
   height: 100%;
-  background: green;
+  border-right: solid 1.5px;
+  border-right-color: #3a3a3a;
+  border-left: solid 1.5px;
+  border-left-color: #3a3a3a;
+
 }

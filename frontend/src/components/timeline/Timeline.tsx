@@ -42,7 +42,6 @@ export default function Timeline() {
   }, []);
   return(
     <div className="Timeline h-full">
-      <h1>TimeLine</h1>
       {posts.map((post: IReceivedPost) => (
         <Post post={post}/>
       ))}

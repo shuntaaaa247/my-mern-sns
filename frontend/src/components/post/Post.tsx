@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
 import { IReceivedPost } from "../timeline/Timeline"
 import { IUser } from "../../state/AuthContext";
 import axios from "axios";
+import "./Post.css"
 
 interface PostProps {
   post: IReceivedPost;
@@ -22,8 +22,8 @@ export default function Post({post}: PostProps) {
   }, []);
   return(
     <div className="Post">
-      <p className="font-sans text-lg">{autherInfo?.username}</p>
-      <p>{post.description.toString()}</p>
+      <p className="px-[2%] font-sans text-lg">{autherInfo?.username}</p>
+      <p className="px-[2%] pt-[1%] pb-[2%]">{post.description.toString()}</p>
     </div>
   )
 }
