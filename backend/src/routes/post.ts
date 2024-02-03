@@ -111,7 +111,7 @@ export const postRouter = () => {
           console.log(friendId)
           return Post.find({ auther: friendId }); //map内のコールバック関数でreturnを使うと、左辺の変数（定数）が配列になり、returnされた値が一つずつ入っていく。
         })
-    )
+      )
       
       console.log("userPosts = ");
       console.log(userPosts);
@@ -121,6 +121,7 @@ export const postRouter = () => {
       return res.status(200).json(userPosts.concat(...friendPosts));
       
     } catch (err) {
+      console.log(err);
       return res.status(500).json(err);
     }
   })
