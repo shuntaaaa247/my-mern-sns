@@ -9,14 +9,14 @@ import "./App.css";
 function App() {
   const { state: authState } = useContext(AuthContext)
   return (
-    <div>
+    <div className='App'>
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={authState.user ? <Home /> : <Navigate to="/login" />}/>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/register" element={<Register />}/> 
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/" element={authState.user ? <Home /> : <Navigate to="/login" />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/register" element={<Register />}/> 
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function Login() {
   const { state: authState, dispatch, } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>):void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
     e.preventDefault();
 
     if(
@@ -19,12 +19,12 @@ export default function Login() {
       && password.current !== undefined
       && password.current !== null
       ) {
-        loginCall({
+      await loginCall({
         email: email.current.value,
         password: password.current.value
       }, dispatch);
 
-      console.log("テストテスト")
+      console.log("テストテスト");
       console.log(authState);
 
       if(authState.user) {
@@ -33,7 +33,7 @@ export default function Login() {
     }
   }
   return (
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mx-[33%] translate-y-32 shadow-2xl rounded-2xl">
+      <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 mx-[33%] translate-y-32 shadow-2xl rounded-2xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account

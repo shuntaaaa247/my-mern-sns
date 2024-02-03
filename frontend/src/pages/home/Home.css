@@ -1,5 +1,11 @@
 .homeContainer {
-  display: flex; /*子要素を横並びに*/
+  height: 100%;
+  display:flex;
+  flex-flow: column; /* 子要素を縦並びに */
+}
 
-  background-color: #f8fcff;
+.mainContainer {
+  flex: 15;
+  display: flex; /*子要素を横並びに*/
+  height: 100%;
 }
