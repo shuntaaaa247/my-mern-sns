@@ -6,6 +6,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import Post from "../post/Post";
+import PostShare from "../postShare/PostShare";
 
 export interface IReceivedPost extends IPost {
   _id: mongoose.Types.ObjectId,
@@ -42,10 +43,12 @@ export default function Timeline() {
   }, []);
   return(
     <div className="Timeline h-full">
+      <PostShare />
+      
       {posts.map((post: IReceivedPost) => (
         <Post post={post}/>
       ))}
-      {JSON.stringify(posts)}
+      {/* {JSON.stringify(posts)} */}
       {authState.user 
         ? <h1>{authState.user?._id.toString()}</h1>
         : "aaa"

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "./Home.css";
-import Topbar from "../../components/topbar/Topbar";
 import { AuthContext } from "../../state/AuthContext";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Timeline from "../../components/timeline/Timeline";
@@ -11,7 +10,6 @@ export default function Home() {
   return (
     // <div style={{height: "93%"}}>
     <div className="homeContainer">
-      <Topbar />
       <div className="mainContainer">
         <Sidebar />
         <Timeline />

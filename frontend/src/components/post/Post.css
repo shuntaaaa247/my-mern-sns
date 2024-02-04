@@ -1,4 +1,4 @@
 .Post {
-  border-bottom: solid 1px;
-  border-bottom-color: #3a3a3a;
+  border-bottom: solid 0.8px;
+  border-bottom-color: rgba(0,0,0,0.3);
 }
