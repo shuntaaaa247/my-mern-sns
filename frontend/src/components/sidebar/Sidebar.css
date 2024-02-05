@@ -1,3 +1,34 @@
 .Sidebar {
-  flex: 3.5
+  flex: 3.5;
+  /* transrate-y: 10%; */
+  /* overflow: hidden; */
+}
+
+.SidebarLink {
+  display: flex;
+
+}
+
+.SidebarLink:hover {
+  text-decoration:underline;
+}
+
+.PostShareTextarea {
+  outline: none;
+  border: none;
+  resize: none;
+}
+
+.PostShareTextarea:focus {
+  outline: none;
+}
+
+.separator {
+  flex: 0.5;
+  display: flex;
+  justify-content: center;
+}
+
+hr {
+  width: 95%;
 }

@@ -51,3 +51,7 @@ hr {
   /* text-color: whilte;
   background: blue; */
 }
+
+p {
+  white-space: pre-wrap; /*投稿の改行コードを有効化*/
+}

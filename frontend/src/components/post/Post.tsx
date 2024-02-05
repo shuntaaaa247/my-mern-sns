@@ -22,7 +22,8 @@ export default function Post({post}: PostProps) {
   }, []);
   return(
     <div className="Post">
-      <p className="px-[2%] font-sans text-lg">{autherInfo?.username}</p>
+      <span className="px-[2%] font-sans text-lg">{autherInfo?.username}</span>
+      <span className="font-sans text-sm">{post.createdAt.toString()}</span>
       <p className="px-[2%] pt-[1%] pb-[2%]">{post.description.toString()}</p>
     </div>
   )

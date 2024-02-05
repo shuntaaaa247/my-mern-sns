@@ -1,7 +1,6 @@
 .homeContainer {
   height: 100%;
-  /* display:flex;
-  flex-flow: column; 子要素を縦並びに */
+  overflow: hidden;
 }
 
 .mainContainer {
