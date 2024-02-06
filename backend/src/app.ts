@@ -30,7 +30,7 @@ const options = {
 };
 app.use(cors(options));
 
-app.use("/images", express.static(path.join(__dirname, "public/images"))) //frontendのenvファイルから静的ファイルを求めて呼び出される。__dirname + public/imagesでbackendの画像フォルダへのパスを表す。
+app.use("/images", express.static(path.join(path.resolve(__dirname, ".."), "public/images"))) //frontendのenvファイルから静的ファイルを求めて呼び出される。__dirname + public/imagesでbackendの画像フォルダへのパスを表す。
 app.use("/api/user", userRouter());
 app.use("/api/auth", authRouter());
 app.use("/api/post", postRouter());
@@ -38,6 +38,10 @@ app.use("/api/upload", uploadRouter());
 
 app.get("/", (req, res) => { //ルート(http://localhost:3000)にアクセスしたときの挙動を設定
     res.send("Hello Express"); //レスポンスとして、文字列を画面に出力させる
+})
+
+app.get("/__dirname", (req, res) => {
+    res.send(path.join(path.resolve(__dirname, ".."), "public/images"));
 })
 
 export default app;

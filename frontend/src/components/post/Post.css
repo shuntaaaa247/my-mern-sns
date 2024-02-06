@@ -2,3 +2,13 @@
   border-bottom: solid 0.8px;
   border-bottom-color: rgba(0,0,0,0.3);
 }
+
+.PostImg {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1%;
+  width: 95%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 1%
+}
