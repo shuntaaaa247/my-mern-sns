@@ -4,7 +4,7 @@ import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import FormatListNumberedOutlinedIcon from '@mui/icons-material/FormatListNumberedOutlined';
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../state/AuthContext";
 
@@ -13,16 +13,36 @@ export default function PostShare() {
   const { state: authState, dispatch, } = useContext(AuthContext);
 
   const newPostDescription = useRef<HTMLTextAreaElement>(null);
+
+  const [file, setFile] = useState<File | null>(null);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
     e.preventDefault();
 
     if(newPostDescription.current?.value !== "" || null || undefined) {
+      let newPostFileName: string = "";
+    
+      if(file) {
+        const data: FormData = new FormData();
+        newPostFileName = Date.now().toString() +"_" + file.name;
+        data.append("name", newPostFileName);
+        data.append("file", file);
+
+        alert(`data.get("name") = ${data.get("name")}`)
+
+        try {
+          await axios.post("/upload", data);
+        } catch(err) {
+          console.log(err);
+        }
+      }
+
       try {
         await axios.post("/post/", {
           auther: authState.user?._id,
           description: newPostDescription.current?.value,
-          img: "",
-        }) //imgはまだ未実装
+          img: newPostFileName,
+        })
 
         window.location.reload() //画面をリロード
 
@@ -38,15 +58,31 @@ export default function PostShare() {
       <div className="PostShareTextareaWapper">
         <textarea placeholder="What is happenning?!" className="PostShareTextarea" ref={newPostDescription}/>
       </div>
+      { file 
+        ? <div className="FileDisplay">
+            <label className="ml-3 px-1" onClick={() => setFile(null)}>×</label>
+            <span className="text-sm px-2 rounded-md bg-stone-200">{ file ? file.name : "" }</span>
+          </div>
+        : <></>
+      }
       <div className="separator">
         <hr />
       </div>
       <div className="ShareOptionsWrapper">
-        <div className="ShareOption">
-          <ImageOutlinedIcon className="imageIcon"/>
+        <div className="ShareOption hover:bg-stone-200 rounded-sm">
+          <label htmlFor="file">
+            <ImageOutlinedIcon className="imageIcon"/>
+            <input 
+              type="file" 
+              id="file" 
+              accept=".png, .jpeg, .jpg" 
+              style={{display: "none"}} 
+              onChange={(e) => { e.target.files ? setFile(e.target.files[0]) : setFile(null)}}
+            />
+          </label>
         </div>
         <div className="ShareOption">
-          <GifBoxOutlinedIcon className="imageIcon"/>
+          <GifBoxOutlinedIcon/>
         </div>
         <div className="ShareOption">
           <FormatListNumberedOutlinedIcon />
