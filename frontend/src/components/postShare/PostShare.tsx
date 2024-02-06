@@ -28,8 +28,6 @@ export default function PostShare() {
         data.append("name", newPostFileName);
         data.append("file", file);
 
-        alert(`data.get("name") = ${data.get("name")}`)
-
         try {
           await axios.post("/upload", data);
         } catch(err) {
@@ -77,7 +75,11 @@ export default function PostShare() {
               id="file" 
               accept=".png, .jpeg, .jpg" 
               style={{display: "none"}} 
-              onChange={(e) => { e.target.files ? setFile(e.target.files[0]) : setFile(null)}}
+              onChange={(e) => {
+                e.target.files 
+                  ? setFile(e.target.files[0]) 
+                  : setFile(null)
+                }}
             />
           </label>
         </div>
