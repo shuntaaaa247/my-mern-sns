@@ -102,21 +102,11 @@ export const postRouter = () => {
       const currentUser = await User.findById(req.params.id);
       const userPosts: IPost[] = await Post.find({ auther: currentUser?._id});
 
-      console.log("currentUser = ");
-      console.log(currentUser);
-
       const friendPosts = await Promise.all(
         currentUser!.followings.map((friendId) => {
-          console.log("あああ")
-          console.log(friendId)
           return Post.find({ auther: friendId }); //map内のコールバック関数でreturnを使うと、左辺の変数（定数）が配列になり、returnされた値が一つずつ入っていく。
         })
       )
-      
-      console.log("userPosts = ");
-      console.log(userPosts);
-      console.log("friendPosts = ");
-      console.log(friendPosts);
 
       return res.status(200).json(userPosts.concat(...friendPosts));
       
