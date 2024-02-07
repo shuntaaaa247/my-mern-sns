@@ -50,7 +50,7 @@ export default function Timeline() {
       <PostShare />
       
       {posts.map((post: IReceivedPost) => (
-        <Post post={post}/>
+        <Post post={post} userId={authState.user?._id ?? null}/>
       ))}
       {/* {JSON.stringify(posts)} */}
       {authState.user 
