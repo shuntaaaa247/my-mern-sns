@@ -13,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={authState.user ? <Home /> : <Navigate to="/login" />}/>
+          <Route path="/profile/:userId" element = {authState.user ? <Home /> : <Navigate to="/login" />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/register" element={<Register />}/> 
         </Routes>

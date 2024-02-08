@@ -54,7 +54,7 @@ export default function PostShare() {
   return(
     <form className="PostShareForm" onSubmit={((e: React.FormEvent<HTMLFormElement>) => handleSubmit(e))}>
       <div className="PostShareTextareaWapper">
-        <textarea placeholder="What is happenning?!" className="PostShareTextarea" ref={newPostDescription}/>
+        <textarea placeholder="What is happenning?!" className="PostShareTextarea focus:ring-0" ref={newPostDescription}/>
       </div>
       { file 
         ? <div className="FileDisplay">

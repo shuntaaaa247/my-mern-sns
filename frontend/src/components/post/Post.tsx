@@ -12,6 +12,7 @@ import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import { pink } from "@mui/material/colors";
 import mongoose from "mongoose";
+import { Link } from "react-router-dom";
 
 interface PostProps {
   post: IReceivedPost;
@@ -27,7 +28,6 @@ export default function Post({post, userId}: PostProps) {
   useEffect(() => {
     const getAuther = async () => {
       const response = await axios.get(`/user/${post.auther.toString()}`);
-      console.log(response);
       setAutherInfo(response.data);
     }
     getAuther();
@@ -39,7 +39,6 @@ export default function Post({post, userId}: PostProps) {
   }, []);
 
   const handleLike = async () => {
-    console.log("いいね")
     isLiked 
       ? setLikeNum(likeNum - 1)
       : setLikeNum(likeNum + 1)
@@ -54,7 +53,9 @@ export default function Post({post, userId}: PostProps) {
   
   return(
     <div className="Post">
-      <span className="px-[2%] font-sans text-lg">{autherInfo?.username}</span>
+      <Link to={`/profile/${autherInfo?._id}`}>
+        <span className="px-[2%] mr-1 font-sans text-lg">{autherInfo?.username}</span>
+      </Link>
       <span className="font-sans text-sm">{post.createdAt.toString()}</span>
       <p className="px-[2%] pt-[1%] pb-[2%]">{post.description.toString()}</p>
       {post.img === "" 

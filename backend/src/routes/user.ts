@@ -26,7 +26,7 @@ export const userRouter = () => {
         email: user?.email,
         introduction: user?.introduction,
         profilePicture: user?.profilePicture,
-        isAddmin: user?.isAdmin,
+        isAdmin: user?.isAdmin,
         followers: user?.followers,
         followings: user?.followings
       }

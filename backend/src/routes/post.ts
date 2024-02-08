@@ -116,5 +116,18 @@ export const postRouter = () => {
     }
   })
 
+  //プロフィール画面用のタイムラインの取得
+  router.get("/profile/timeline/:id", async (req: express.Request, res: express.Response) => {
+    try {
+      const currentUser = await User.findById(req.params.id);
+      const userPosts: IPost[] = await Post.find({ auther: currentUser?._id});
+
+      return res.status(200).json(userPosts);
+    } catch(err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  })
+
   return router;
 }

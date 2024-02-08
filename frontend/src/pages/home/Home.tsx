@@ -7,6 +7,7 @@ import Rightbar from "../../components/rightbar/Rightbar";
 
 export default function Home() {
   const { state: authState, dispatch, } = useContext(AuthContext);
+
   return (
     // <div style={{height: "93%"}}>
     <div className="homeContainer">
@@ -15,7 +16,6 @@ export default function Home() {
         <Timeline />
         <Rightbar />
       </div>
-      {/* {JSON.stringify(authState)} */}
     </div>
   )
 }

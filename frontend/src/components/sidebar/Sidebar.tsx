@@ -27,7 +27,6 @@ export default function Sidebar() {
     padding: "10px",
     borderRadius: "10px",
     height: "60%",
-    // width: "50vw",
     transform: "translateX(35vw) translateY(-40%)",
   };
 
@@ -116,8 +115,8 @@ export default function Sidebar() {
               <form onSubmit={((e: React.FormEvent<HTMLFormElement>) => handleSubmit(e))} className="h-full">
                 <ClearIcon onClick={() => setModalIsOpen(false)} className="mt-[1%] mb-[2%]"/>
                 { file 
-                  ? <textarea placeholder="What is happenning?!" className="PostShareTextarea w-full h-[75%]" ref={newPostDescription}/>
-                  : <textarea placeholder="What is happenning?!" className="PostShareTextarea w-full h-[80%]" ref={newPostDescription}/>
+                  ? <textarea placeholder="What is happenning?!" className="PostShareTextarea w-full h-[75%] focus:ring-0" ref={newPostDescription}/>
+                  : <textarea placeholder="What is happenning?!" className="PostShareTextarea w-full h-[80%] focus:ring-0" ref={newPostDescription}/>
                 }
                 
                 { file 
