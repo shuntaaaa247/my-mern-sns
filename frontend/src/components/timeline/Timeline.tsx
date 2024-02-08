@@ -29,6 +29,7 @@ export interface IReceivedPost extends IPost {
 export default function Timeline() {
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [posts, setPosts] = useState<IReceivedPost[]>([]);
+  // const [urlParams, setUrlParams] = useState(undefined);
 
   // profileページ(/profile/:id)の場合、この変数にidが入る。このidによって普通のタイムラインがプロフィールページ用のタイムラインかを分岐する。
   // /profile/:idではなくただの / だった場合(App.tsに記述したpath)、下の変数の中身はundefined
@@ -37,7 +38,7 @@ export default function Timeline() {
   useEffect(() => {
     const fetchPosts = async () => {
       let response: AxiosResponse;
-      if (urlParams.userId === undefined) {
+      if (!urlParams.userId) {
         response = await axios.get(`/post/timeline/${authState.user?._id.toString()}`); // APIの呼び出し
       } else {
         response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
@@ -49,14 +50,14 @@ export default function Timeline() {
       ); // response本体には余分なものが含まれている。responseのdataが欲しいデータ(expressで定義したresponse)。sort()で新しい順にしている
     }
     fetchPosts();
-    // alert(urlParams.userId);
-    // const preventTimelineUrl = localStorage.getItem("prevent_timeline_url_userId");
-    // if (preventTimelineUrl !== urlParams.userId) {
-    //   localStorage.setItem("prevent_timeline_url_userId", urlParams.userId ?? "no_userId_in_url_paramaters");
-    //   window.location.reload();
-    // }
 
   }, []);
+
+  useEffect(() => {
+    if (posts.length > 0) {
+      window.location.reload();
+    }
+  }, [urlParams.userId])
 
   return(
     <div className="Timeline h-full">
