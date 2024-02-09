@@ -17,6 +17,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 
 export default function Sidebar() {
+  const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
@@ -158,6 +159,10 @@ export default function Sidebar() {
                   <div className="ShareOption">
                     <LocationOnOutlinedIcon />
                   </div>
+                  {authState.user?.profilePicture === "" 
+                    ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトアイコン" className="ProfileIconNextToInputOnModal ml-auto"/>
+                    : <img src={PUBLIC_FOLDER + "/" + authState.user?.profilePicture} alt="アイコン" className="ProfileIconNextToInputOnModal ml-auto"/>
+                  }
                   <div className="ml-auto">
                     <button className="PostShareButton bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl px-6 py-2">Post</button>
                   </div>

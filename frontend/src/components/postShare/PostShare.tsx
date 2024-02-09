@@ -10,6 +10,8 @@ import { AuthContext } from "../../state/AuthContext";
 
 
 export default function PostShare() {
+  const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
+
   const { state: authState, dispatch, } = useContext(AuthContext);
 
   const newPostDescription = useRef<HTMLTextAreaElement>(null);
@@ -53,7 +55,11 @@ export default function PostShare() {
   }
   return(
     <form className="PostShareForm" onSubmit={((e: React.FormEvent<HTMLFormElement>) => handleSubmit(e))}>
-      <div className="PostShareTextareaWapper">
+      <div className="PostShareTextareaWapper flex">
+        {authState.user?.profilePicture === "" 
+          ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトアイコン" className="ProfileIconNextToInput"/>
+          : <img src={PUBLIC_FOLDER + "/" + authState.user?.profilePicture} alt="アイコン" className="ProfileIconNextToInput"/>
+        }
         <textarea placeholder="What is happenning?!" className="PostShareTextarea focus:ring-0" ref={newPostDescription}/>
       </div>
       { file 
