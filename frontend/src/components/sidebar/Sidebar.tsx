@@ -96,7 +96,7 @@ export default function Sidebar() {
             <h2 className="text-2xl font-sans">Messages</h2>
           </div>
         </Link>
-        <Link to="#">
+        <Link to={`/profile/${authState.user?._id}`}>
           <div className="SidebarLink">
             <PermIdentityOutlinedIcon fontSize="large"/>
             <h2 className="text-2xl font-sans">Profile</h2>
