@@ -20,3 +20,12 @@
   padding-right: 50px;
   margin-bottom: 10px;
 }
+
+.UserIcon {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: solid 0.5px rgba(0,0,0,0.3);
+  margin-right: 7px;
+}

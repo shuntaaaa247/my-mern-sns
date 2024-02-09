@@ -53,10 +53,22 @@ export default function Post({post, userId}: PostProps) {
   
   return(
     <div className="Post">
-      <Link to={`/profile/${autherInfo?._id}`}>
-        <span className="px-[2%] mr-1 font-sans text-lg">{autherInfo?.username}</span>
-      </Link>
-      <span className="font-sans text-sm">{post.createdAt.toString()}</span>
+      <div className="flex mt-2 ml-2">
+        <Link to={`/profile/${autherInfo?._id}`}>
+          {autherInfo?.profilePicture === "" 
+            ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトアイコン" className="UserIcon"/>
+            : <img src={PUBLIC_FOLDER + "/" + autherInfo?.profilePicture} alt="アイコン" className="UserIcon"/>
+          }
+        </Link>
+        <div className="mt-auto mb-auto">
+          <Link to={`/profile/${autherInfo?._id}`}>
+            <span className="px-[2%] mr-1 font-sans text-lg">{autherInfo?.username}</span>
+          </Link>
+        </div>
+        <div className="mt-auto mb-auto ml-2">
+          <span className="font-sans text-sm">{post.createdAt.toString()}</span>
+        </div>
+      </div>
       <p className="px-[2%] pt-[1%] pb-[2%]">{post.description.toString()}</p>
       {post.img === "" 
         ? <></> 

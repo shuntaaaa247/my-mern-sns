@@ -27,3 +27,18 @@
   width: 100%;
   resize: none;
 }
+
+.ProfileIconForEdit {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: solid rgba(0,0,0,0.3);
+  margin-left: 3%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.ProfileIconForEdit:hover {
+  opacity: 0.6;  
+}

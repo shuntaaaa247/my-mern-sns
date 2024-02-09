@@ -59,6 +59,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   //editのモーダルでusername,introductionを入力できるようにするため(valueをこれに設定しないと再レンダリングの関係でinput,textareaタグに入力できなくなる)
   const [usernameForEdit, setUsernameForEdit] = useState<string | undefined>(user.username); 
   const [introductionForEdit, setIntroductionForEdit] = useState<string | undefined>(user.introduction);
+  const [fileForEdit, setFileForEdit] = useState<File | null>(null);
 
   //以下三つモーダルの設定
   function openModal() {
@@ -73,16 +74,40 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
     setIsOpen(false);
     setUsernameForEdit(user.username);
     setIntroductionForEdit(user.introduction);
+    setFileForEdit(null);
   }
 
   //userの編集
   const handleEditSave = async () => {
+    let newIconFileName: string = "";
+    if(fileForEdit) {
+      const data: FormData = new FormData();
+      newIconFileName = Date.now().toString() +"_" + fileForEdit.name;
+      data.append("name", newIconFileName);
+      data.append("file", fileForEdit);
+
+      try {
+        await axios.post("/upload", data);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+
     try {
-      await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
-        _id: authState.user?._id,
-        username: usernameForEdit,
-        introduction: introductionForEdit
-      });
+      if(fileForEdit) {
+        await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
+          _id: authState.user?._id,
+          username: usernameForEdit,
+          introduction: introductionForEdit,
+          profilePicture: newIconFileName
+        });
+      } else {
+        await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
+          _id: authState.user?._id,
+          username: usernameForEdit,
+          introduction: introductionForEdit,
+        });
+      }
     } catch(err) {
       console.log(err);
       alert("編集に失敗しました");
@@ -96,6 +121,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
       setUser(response.data);
       setUsernameForEdit(response.data.username);
       setIntroductionForEdit(response.data.introduction);
+      // setFileForEdit(response.data.profilePicture === "" ? null : response.data.profilePicture);
     }
     fetchUser();
   }, []);
@@ -103,7 +129,11 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   return(
     <div className="ProfileInfo">
       <div className="flex justify-between mt-4">
-        <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトアイコン" className="ProfileIcon"/>
+
+        { user.profilePicture === "" 
+          ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトユーザーアイコン" className="ProfileIcon"/> 
+          : <img src={PUBLIC_FOLDER + "/" + user.profilePicture} alt="ユーザーアイコン" className="ProfileIcon"/> 
+        }
         { (userId === authState.user?._id.toString())
           ? <div className="mt-2 mr-3">
               <button onClick={openModal} className="px-4 py-1 border-[1px] border-black font-semibold text-lg text-slate-900 rounded-3xl hover:bg-stone-100">
@@ -144,6 +174,34 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
           <button onClick={() => handleEditSave()} className="text-lg bg-stone-800 text-white px-3 rounded-3xl mb-1 hover:bg-stone-500">Save</button>
         </div>
         <form className="EditForm">
+          <div className="userIconEditArea">
+          <label htmlFor="file">
+            { fileForEdit 
+              ? <img src={window.URL.createObjectURL(fileForEdit)} alt="ユーザーアイコン" className="ProfileIconForEdit" />
+                
+              : user.profilePicture === ""
+                ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトユーザーアイコン" className="ProfileIconForEdit"/> 
+                : <img src={PUBLIC_FOLDER + "/" + user.profilePicture} alt="ユーザーアイコン" className="ProfileIconForEdit"/> 
+            }
+            {/* { user.profilePicture === ""
+              ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトユーザーアイコン" className="ProfileIconForEdit"/> 
+              : <img src={PUBLIC_FOLDER + "/" + user.profilePicture} alt="ユーザーアイコン" className="ProfileIconForEdit"/> 
+            } */}
+            <input 
+              type="file" 
+              id="file" 
+              accept=".png, .jpeg, .jpg" 
+              style={{display: "none"}} 
+              onChange={(e) => {
+                e.target.files 
+                  ? setFileForEdit(e.target.files[0]) 
+                  : setFileForEdit(null)
+                }}
+            />
+            <span>new file for icon: </span>
+            <span className="rounded-sm bg-stone-200 ">{fileForEdit?.name}</span>
+          </label>
+          </div>
           <div className="UsernameEditerArea border-[1px] border-neutral-300 rounded-md mb-2">
             <label htmlFor="username" className="ml-2">username</label>
             <br />
