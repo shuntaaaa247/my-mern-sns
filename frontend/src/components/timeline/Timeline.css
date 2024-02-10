@@ -1,9 +1,0 @@
-.Timeline {
-  flex: 6;
-  height: 100%;
-  border-right: solid 2px;
-  border-right-color: rgba(0,0,0,0.3);
-  border-left: solid 1.5px;
-  border-left-color: rgba(0,0,0,0.3);
-  overflow: auto;
-}

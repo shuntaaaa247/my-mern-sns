@@ -1,9 +1,0 @@
-.homeContainer {
-  height: 100%;
-  overflow: hidden;
-}
-
-.mainContainer {
-  display: flex; /*子要素を横並びに*/
-  height: 100%;
-}
