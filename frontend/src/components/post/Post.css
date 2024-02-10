@@ -1,0 +1,52 @@
+.Post {
+  border-bottom: solid 0.8px;
+  border-bottom-color: rgba(0,0,0,0.3);
+}
+
+.PostImg {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1%;
+  width: 80%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 1%
+}
+
+.ActionButtons {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-bottom: 10px;
+}
+
+.UserIcon {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: solid 0.5px rgba(0,0,0,0.3);
+  margin-right: 7px;
+}
+
+.PostDeleteIcon {
+  margin-left: auto;
+  margin-right: 5px;
+  color: #4d4d4d;
+}
+
+.PostDeleteIcon:hover {
+  color: red;
+}
+
+.PostImgForDelete {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1%;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 1%
+}
+

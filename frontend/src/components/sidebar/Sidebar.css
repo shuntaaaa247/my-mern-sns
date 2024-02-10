@@ -1,0 +1,42 @@
+.Sidebar {
+  flex: 3.5;
+  /* transrate-y: 10%; */
+  /* overflow: hidden; */
+}
+
+.SidebarLink {
+  display: flex;
+
+}
+
+.SidebarLink:hover {
+  text-decoration:underline;
+}
+
+.PostShareTextarea {
+  outline: none;
+  border: none;
+  resize: none;
+}
+
+.PostShareTextarea:focus {
+  outline: none;
+}
+
+.separator {
+  flex: 0.5;
+  display: flex;
+  justify-content: center;
+}
+
+hr {
+  width: 95%;
+}
+
+.ProfileIconNextToInputOnModal {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: solid rgba(0,0,0,0.3);
+}
