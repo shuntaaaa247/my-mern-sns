@@ -111,6 +111,7 @@ export const userRouter = () => {
     }
   })
   
+  //ランダムにユーザーを抽出する
   router.get("/random/:length", async(req: express.Request, res: express.Response) => {
     try {
       let users: IReceivedUser[];
