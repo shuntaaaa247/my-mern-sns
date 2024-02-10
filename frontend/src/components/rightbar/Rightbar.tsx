@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import "./Rightbar.css"
 import { IUser } from "../../state/AuthContext"
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 export default function Rightbar() {
   const [recomendedUsers, setRecomendedUsers] = useState<IUser[]>([]);
