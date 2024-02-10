@@ -12,7 +12,7 @@ interface ProfileInfoProsps {
   userId: string;
 }
 
-interface IReceivedUser {
+export interface IReceivedUser {
   _id: Schema.Types.ObjectId,
   username: string,
   email: string,
@@ -124,6 +124,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
       // setFileForEdit(response.data.profilePicture === "" ? null : response.data.profilePicture);
     }
     fetchUser();
+
   }, []);
 
   return(

@@ -111,6 +111,16 @@ export const userRouter = () => {
     }
   })
   
+  router.get("/random/:length", async(req: express.Request, res: express.Response) => {
+    try {
+      let users: IReceivedUser[];
+      users = await User.aggregate([{$sample: {size: +req.params.length}}]); //lenght分だけランダムにUserを取得する。
+      return res.status(200).json(users);
+    } catch(err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  })
 
   return router;
 }
