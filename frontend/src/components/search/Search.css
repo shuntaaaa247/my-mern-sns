@@ -1,0 +1,43 @@
+.Search {
+  flex: 6;
+  display: flex;
+  flex-flow: column;
+  border-right: solid 2px;
+  border-right-color: rgba(0,0,0,0.3);
+  border-left: solid 1.5px;
+  border-left-color: rgba(0,0,0,0.3);
+}
+
+.SearchbarArea {
+  flex: 1;
+  display: flex;
+  border-radius: 30px;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+  background: #f5f5f5;
+}
+
+.SearchLabel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.SearchIcon {
+}
+
+.SearchInput {
+  flex: 15;
+  margin-right: 5%;
+  border: none;
+}
+
+.TrendArea {
+  flex: 15;
+  overflow: auto;
+  margin-left: 2%;
+}

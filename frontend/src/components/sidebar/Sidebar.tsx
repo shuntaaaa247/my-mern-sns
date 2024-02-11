@@ -78,7 +78,7 @@ export default function Sidebar() {
             <span className="text-2xl font-sans">Home</span>
           </div>
         </Link>
-        <Link to="#">
+        <Link to="/search">
           <div className="SidebarLink">
             <SearchOutlinedIcon fontSize="large"/>
             <h2 className="text-2xl font-sans">Explore</h2>
