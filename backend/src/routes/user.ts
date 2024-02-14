@@ -123,5 +123,30 @@ export const userRouter = () => {
     }
   })
 
+  //ユーザーの検索
+  router.get("/search/user_search", async(req: express.Request, res: express.Response) => {
+    try {
+      const searchText: string = req.query.text as string;
+      if(!searchText) {
+        return res.status(400).json({ message: "検索文字列が指定されていません" });
+      }
+
+      //正規表現：[]の中に入れた文字(カンマなどで区切らない)のどれか一つに当てはまったら(今回は半角スペースと全角スペース)、そしてそれが一回以上繰り返されたらsplitで分割する
+      const searchKeywords: string[] = searchText.split(/[ 　]+/); 
+
+      //クエリの配列ができる。(or演算子を使って二つのフィールドにおけるクエリを記述)
+      const searchConditions = searchKeywords.map(keyword => ({ 
+        $or: [{username: { $regex: keyword, $options: "i" }}, {introduction: { $regex: keyword, $options: "i" }}]
+      }))
+
+      const fetchedPosts = await User.find({ $and: searchConditions});
+
+      return res.status(200).json(fetchedPosts);
+    } catch(err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  })
+
   return router;
 }
