@@ -150,7 +150,6 @@ export const postRouter = () => {
       //$orで配列内のクエリをそれぞれ実行し、そのクエリ全てに当てはまるドキュメントを探す。findなので結果のドキュメント達が配列fetchedPostsに格納される
       const fetchedPosts = await Post.find({ $and: searchConditions});
 
-      // const fetchedPosts = await Post.find({description: {$regex: req.query.text, $options: "i"}});
       return res.status(200).json(fetchedPosts);
       
     } catch (err) {
