@@ -26,7 +26,7 @@ export const Search = () => {
         <ul>
           {trendList.map((trend, index) => (
             <li key={index} className="mt-2 mb-3">
-              <span className="text-sm text-stone-600">{index + 1}・Tranding</span>
+              <span className="text-sm text-stone-600">{index + 1}・Trending</span>
               <br />
               <span className="text-lg">{trend}</span>
             </li>

@@ -6,7 +6,8 @@ import Modal from 'react-modal'
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import ClearIcon from '@mui/icons-material/Clear';
 import { AuthContext } from "../../state/AuthContext";
-
+import { UserList } from "../userList/UserList";
+import { Link } from "react-router-dom";
 
 interface ProfileInfoProsps {
   userId: string;
@@ -136,6 +137,12 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
 
   }, []);
   
+  if(window.location.href.includes("/followers") || window.location.href.includes("/following")) {
+    return (
+      <UserList />
+    )
+  }
+
   if(authState.user) {
     return(
       <div className="ProfileInfo">
@@ -167,12 +174,16 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
           <br />
           <div className="mt-2 flex">
             <div className="following hover:underline">
-              <span className="font-semibold">{user.followings.length}</span>
-              <span className="pl-1 text-stone-600">Following</span>
+              <Link to={`/profile/${user._id}/following`}>
+                <span className="font-semibold">{user.followings.length}</span>
+                <span className="pl-1 text-stone-600">Following</span>
+              </Link>
             </div>
             <div className="ml-2 followers hover:underline">
-              <span className="font-semibold">{user.followers.length}</span>
-              <span className="pl-1 text-stone-600">Followers</span>
+              <Link to={`/profile/${user._id}/followers`}>
+                <span className="font-semibold">{user.followers.length}</span>
+                <span className="pl-1 text-stone-600">Followers</span>
+              </Link>
             </div>
           </div>
         </div>

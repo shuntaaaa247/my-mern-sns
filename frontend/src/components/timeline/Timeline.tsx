@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import mongoose, { Date } from "mongoose";
 import mongoose from "mongoose";
 import "./Timeline.css"
-import axios, { Axios, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import Post from "../post/Post";
@@ -29,6 +28,7 @@ export interface IReceivedPost extends IPost {
 export default function Timeline() {
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [posts, setPosts] = useState<IReceivedPost[]>([]);
+
   // const [urlParams, setUrlParams] = useState(undefined);
 
   // profileページ(/profile/:id)の場合、この変数にidが入る。このidによって普通のタイムラインがプロフィールページ用のタイムラインかを分岐する。
@@ -57,19 +57,21 @@ export default function Timeline() {
     if (posts.length > 0) {
       window.location.reload();
     }
-  }, [urlParams.userId])
+  }, [urlParams.userId]);
 
   return(
     <div className="Timeline h-full">
-      {urlParams.userId === undefined ? <PostShare /> : <ProfileInfo userId={urlParams.userId}/>}
-      
+      {urlParams.userId === undefined  ? <PostShare /> : <ProfileInfo userId={urlParams.userId}/>}
+
       {posts.map((post: IReceivedPost) => (
-        <Post post={post} userId={authState.user?._id ?? null}/>
+        window.location.href.includes("/followers") || window.location.href.includes("/following")
+        ? <></>
+        : <Post post={post} userId={authState.user?._id ?? null}/>
       ))}
-      {authState.user 
+      {/* {authState.user 
         ? <h1>{authState.user?._id.toString()}</h1>
         : "aaa"
-      }
+      } */}
     </div>
   )
 }

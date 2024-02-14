@@ -15,6 +15,8 @@ function App() {
         <Routes>
           <Route path="/" element={authState.user ? <Home /> : <Navigate to="/login" />}/>
           <Route path="/profile/:userId" element = {authState.user ? <Home /> : <Navigate to="/login" />}/>
+          <Route path="/profile/:userId/followers" element = {authState.user ? <Home /> : <Navigate to="/login" />}/>
+          <Route path="/profile/:userId/following" element = {authState.user ? <Home /> : <Navigate to="/login" />}/>
           <Route path="/search" element = {authState.user ? <SearchPage /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />}/>
           <Route path="/register" element={<Register />}/> 
