@@ -133,7 +133,7 @@ export const postRouter = () => {
   //投稿の検索
   router.get("/search/post_search", async (req: express.Request, res: express.Response) => {
     try {
-      //req.query.textで~/search/post_search?searchText=xxxのxxxを取得できる
+      //req.query.searchTextで~/search/post_search?searchText=xxxのxxxを取得できる
       const searchText: string = req.query.text as string;
       if(!searchText) {
         return res.status(400).json({ message: "検索文字列が指定されていません" });
