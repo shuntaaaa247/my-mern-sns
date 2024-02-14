@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import { Post, IPost } from "../models/Post";
 import mongoose, { Schema, mongo } from "mongoose";
 import { IUser, User } from "../models/User";
+import { text } from "body-parser";
 
 export const postRouter = () => {
   const router: Router = Router();
@@ -128,6 +129,36 @@ export const postRouter = () => {
       return res.status(500).json(err);
     }
   })
+
+  //投稿の検索
+  router.get("/search/post_search", async (req: express.Request, res: express.Response) => {
+    try {
+      //req.query.textで~/search/post_search?searchText=xxxのxxxを取得できる
+      const searchText: string = req.query.text as string;
+      if(!searchText) {
+        return res.status(400).json({ message: "検索文字列が指定されていません" });
+      }
+
+      //正規表現：[]の中に入れた文字(カンマなどで区切らない)のどれか一つに当てはまったら(今回は半角スペースと全角スペース)、そしてそれが一回以上繰り返されたらsplitで分割する
+      const searchKeywords: string[] = searchText.split(/[ 　]+/); 
+
+      //「description(Postのフィールド): クエリ」の形式を返され、それが配列となる
+      const searchConditions = searchKeywords.map(keyword => ({ 
+        description: { $regex: keyword, $options: "i" } //$regexは指定のフィールド(description)に指定の文字列(keyword)を含むドキュメントを探す演算子
+      }))
+
+      //$orで配列内のクエリをそれぞれ実行し、そのクエリ全てに当てはまるドキュメントを探す。findなので結果のドキュメント達が配列fetchedPostsに格納される
+      const fetchedPosts = await Post.find({ $and: searchConditions});
+
+      // const fetchedPosts = await Post.find({description: {$regex: req.query.text, $options: "i"}});
+      return res.status(200).json(fetchedPosts);
+      
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  })
+  
 
   return router;
 }
