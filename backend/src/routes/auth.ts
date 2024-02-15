@@ -17,6 +17,10 @@ export const authRouter = () => {
 
       return res.status(200).json(user);
     } catch(err) {
+      const usersWhoHaveSameEmail = await User.find({email: req.body.email});
+      if (usersWhoHaveSameEmail.length > 0) {
+        return res.status(500).json("Error: the email is already in use" + "\n" + err);
+      }
       console.log("Error at authRouter");
       return res.status(500).json(err);
     }
