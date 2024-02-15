@@ -7,7 +7,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import ClearIcon from '@mui/icons-material/Clear';
 import { AuthContext } from "../../state/AuthContext";
 import { UserList } from "../userList/UserList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ProfileInfoProsps {
   userId: string;
@@ -55,6 +55,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [user, setUser] = useState<IReceivedUser>(dummyUser);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   //editのモーダルでusername,introductionを入力できるようにするため(valueをこれに設定しないと再レンダリングの関係でinput,textareaタグに入力できなくなる)
   const [usernameForEdit, setUsernameForEdit] = useState<string | undefined>(user.username); 
@@ -122,6 +123,15 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
     } catch(err) {
       console.log(err);
       alert("エラーが発生しました");
+    }
+  }
+
+  const handleSignOut = () => {
+    const conf: boolean = window.confirm("本当にサインアウトしますか?");
+    if(conf) {
+      //サインアウト処理
+      window.localStorage.removeItem("user");
+      window.location.reload();
     }
   }
 
@@ -210,10 +220,6 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
                   ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトユーザーアイコン" className="ProfileIconForEdit"/> 
                   : <img src={PUBLIC_FOLDER + "/" + user.profilePicture} alt="ユーザーアイコン" className="ProfileIconForEdit"/> 
               }
-              {/* { user.profilePicture === ""
-                ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトユーザーアイコン" className="ProfileIconForEdit"/> 
-                : <img src={PUBLIC_FOLDER + "/" + user.profilePicture} alt="ユーザーアイコン" className="ProfileIconForEdit"/> 
-              } */}
               <input 
                 type="file" 
                 id="file" 
@@ -252,6 +258,11 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
               </textarea>
             </div>
           </form>
+          <hr className="mt-3 mx-auto"/>
+          <div className="flex flex-col mt-2">
+            <button onClick={() => handleSignOut()} className="bg-stone-200 mx-auto px-3 py-1 mt-2 mb-1 rounded-md font-medium hover:bg-stone-100">Sign out</button>
+            <button className="px-3 py-1 hover:underline" onClick={() => {navigate("/login")}}>Log in with other Account</button>
+          </div>
         </Modal>
       </div>
     )
