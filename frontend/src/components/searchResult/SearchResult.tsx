@@ -1,0 +1,84 @@
+import React, { useEffect, useState } from "react";
+import "./SearchResult.css";
+import { IReceivedPost } from "../timeline/Timeline";
+import axios from "axios";
+import Post from "../post/Post";
+import { useContext } from "react";
+import { AuthContext } from "../../state/AuthContext";
+import { IReceivedUser } from "../profileInfo/ProfileInfo";
+import { User } from "../user/User";
+
+
+export const SearchResult = () => {
+  const { state: authState, dispatch, } = useContext(AuthContext);
+  const [fetchedPosts, setFetchedPost] = useState<IReceivedPost[]>([]);
+  const [fetchedUsers, setFetchedUsers] = useState<IReceivedUser[]>([]);
+  const [mode, setMode] = useState<string>("posts");
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await axios.get(`/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
+      setFetchedPost(response.data);
+    }
+
+    const fetchUsers = async () => {
+      const response = await axios.get(`/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
+      setFetchedUsers(response.data)
+    }
+
+    fetchPosts();
+    fetchUsers();
+  }, [window.location.href]);
+
+
+  const changeToPeople = () => {
+    if(mode === "posts") {
+      setMode("people");
+    }
+  }
+
+  const changeToPosts = () => {
+    if(mode === "people") {
+      setMode("posts");
+    }
+  }
+
+  return(
+    <div className="ResultContainer">
+      <div className="OptionsForResult">
+        <div className="OptionForResult OptionLeftForResult" onClick={() => changeToPosts()}>
+          {mode === "posts"
+            ? <span className="text-lg border-b-4 border-indigo-500">Posts</span>
+            : <span className="text-lg">Posts</span>
+          }
+        </div>
+        <div className="OptionForResult" onClick={() => changeToPeople()}>
+          {mode === "people"
+            ? <span className="text-lg border-b-4 border-indigo-500">People</span>
+            : <span className="text-lg">People</span>
+          }
+        </div>
+      </div>
+      <div className="ResultArea">
+        {mode === "posts"
+          ? 
+          <div>
+            {fetchedPosts.map((post) => {
+              return(
+                <Post post={post} userId={authState.user?._id ?? null}/>
+              )
+            })}
+          </div>
+          : <div>
+            {fetchedUsers.map((user) => {
+              return(
+                <User user={user}/>
+              )
+            })}
+          </div>
+        }
+        
+      </div>
+    </div>
+  )
+}

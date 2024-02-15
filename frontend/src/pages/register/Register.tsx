@@ -1,7 +1,7 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { AuthContext } from "../../state/AuthContext";
 import { useContext } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { loginCall } from "../../state/actionCalls";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,6 +17,7 @@ export default function Register () {
   const username = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const [isEmailError, setIsEmailError] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -37,15 +38,23 @@ export default function Register () {
           password: password.current.value
         }
 
-        await axios.post("/auth/register", newUserInfo) //register APIの呼び出し
+        try {
+          await axios.post("/auth/register", newUserInfo) //register APIの呼び出し
 
-        loginCall({
-          email: newUserInfo.email,
-          password: newUserInfo.password
-        }, dispatch);
+          loginCall({
+            email: newUserInfo.email,
+            password: newUserInfo.password
+          }, dispatch);
 
-        if(authState.user) {
-          navigate("/");
+          if(authState.user) {
+            navigate("/");
+          }
+        } catch(err: any) {
+          if(err.response.data.includes("Error: the email is already in use")) {
+            setIsEmailError(true);
+          } else {
+            alert("エラーが発生しました");
+          }
         }
       }
   }
@@ -112,11 +121,16 @@ export default function Register () {
                 />
               </div>
             </div>
-
+            
+            {isEmailError 
+              ? <p className="text-red-600 text-sm font-medium text-center">そのメールアドレスはすでに使用されています</p> 
+              : <></>
+            }
+            
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[15%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[10%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Register
               </button>

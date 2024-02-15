@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import "./UserList.css";
 import mongoose from "mongoose";
+import { User } from "../user/User";
+
 
 export const UserList = () => {
   const [targetUser, setTargetUser] = useState<IReceivedUser>();
@@ -95,18 +97,7 @@ export const UserList = () => {
       </div>
       <ul>
         {fetchedUsers.map((user) => 
-          <li key={user._id.toString()} onClick={() => toProfile(user._id)} className="px-3 hover:bg-stone-100">
-            <div className="flex justify-start pt-3 pb-3">
-              {user?.profilePicture === "" 
-                ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトアイコン" className="UserIconOnUserList"/>
-                : <img src={PUBLIC_FOLDER + "/" + user?.profilePicture} alt="アイコン" className="UserIconOnUserList"/>
-              }
-                <div className="flex flex-col">
-                  <span className="ml-1 text-lg">{user.username}</span>
-                  <span className="ml-1 text-sm text-stone-600">{user.introduction}</span>
-                </div>
-            </div>
-          </li>
+          <User user={user}/>
         )}
       </ul>
     </div>

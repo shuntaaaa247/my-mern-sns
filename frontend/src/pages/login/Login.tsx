@@ -38,6 +38,7 @@ export default function Login() {
           <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
+          {/* <p>{authState.user?.username ? "ユーザーあり" : "ユーザーなし"}</p> */}
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -97,6 +98,9 @@ export default function Login() {
             ? <Link to="/"><p className="text-center mt-2 mb-0 text-sm font-medium hover:underline">ホームへ戻りますか？</p></Link>
             : <></>
           }
+          <p onClick={() => 
+            alert("アカウントの作成をスキップしたい方は、採用担当者(ゲスト)アカウントをお使いください。\n email: recruiter@recruiter.com \n password: recruiter")
+          } className="text-center mt-8 text-sm font-medium cursor-pointer hover:underline">採用担当者の方へ</p>
         </div>
         {/* {JSON.stringify(authState)} */}
       </div>

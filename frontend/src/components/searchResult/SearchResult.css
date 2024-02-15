@@ -1,0 +1,33 @@
+.ResultContainer {
+  flex: 15;
+  display: flex;
+  flex-flow: column;
+  overflow: auto;
+}
+
+.ResultArea {
+  display: flex;
+  flex-flow: column;
+}
+
+.OptionsForResult {
+  display: flex;
+  border-top: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+}
+
+.OptionForResult {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.OptionLeftForResult {
+  border-right: solid 1px darkgray;
+}
+
+.OptionForResult:hover {
+  background-color: #f5f5f5;
+}
