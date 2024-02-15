@@ -15,6 +15,7 @@ import { pink } from "@mui/material/colors";
 import mongoose from "mongoose";
 import { Link } from "react-router-dom";
 import Modal from 'react-modal' //モーダル用(デフォルト)
+import { format } from "timeago.js";
 
 interface PostProps {
   post: IReceivedPost;
@@ -79,7 +80,7 @@ export default function Post({post, userId}: PostProps) {
     setIsLiked(!isLiked);
 
     if (userId) {
-      // alert((await axios.put(`/post/${userId.toString()}/like`, {requesterId: userId.toString()})).data); //いいねAPIを叩く
+      //いいねAPIを叩く
       await axios.put(`/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
     };
   }
@@ -111,20 +112,18 @@ export default function Post({post, userId}: PostProps) {
   } else {
     return(
       <div className="Post">
-        <div className="flex mt-2 ml-2">
+        <div className="flex mt-2 ml-2 mr-0">
           <Link to={`/profile/${autherInfo?._id}`}>
             {autherInfo?.profilePicture === "" 
               ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトアイコン" className="UserIcon"/>
               : <img src={PUBLIC_FOLDER + "/" + autherInfo?.profilePicture} alt="アイコン" className="UserIcon"/>
             }
           </Link>
-          <div className="mt-auto mb-auto">
+          <div className="mt-auto mb-auto w-[80%]">
             <Link to={`/profile/${autherInfo?._id}`}>
               <span className="px-[2%] mr-1 font-sans text-lg">{autherInfo?.username}</span>
+              <span className="font-sans text-sm">{format(post.createdAt.toString())}</span>
             </Link>
-          </div>
-          <div className="mt-auto mb-auto ml-2">
-            <span className="font-sans text-sm">{post.createdAt.toString()}</span>
           </div>
           {autherInfo?._id === userId 
             ? <DeleteOutlineIcon onClick={() => handleDeleteOnTimeline()} className="PostDeleteIcon"/>
