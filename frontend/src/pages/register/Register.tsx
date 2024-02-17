@@ -143,7 +143,6 @@ export default function Register () {
           }
           
         </div>
-        {/* {JSON.stringify(authState)} */}
       </div>
   )
 }

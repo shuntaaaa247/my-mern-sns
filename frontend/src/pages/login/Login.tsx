@@ -102,7 +102,6 @@ export default function Login() {
             alert("アカウントの作成をスキップしたい方は、採用担当者(ゲスト)アカウントをお使いください。\n email: recruiter@recruiter.com \n password: recruiter")
           } className="text-center mt-8 text-sm font-medium cursor-pointer hover:underline">採用担当者の方へ</p>
         </div>
-        {/* {JSON.stringify(authState)} */}
       </div>
   )
 }

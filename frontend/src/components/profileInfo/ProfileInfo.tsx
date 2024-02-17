@@ -137,11 +137,17 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/user/${userId}`);
-      setUser(response.data);
-      setUsernameForEdit(response.data.username);
-      setIntroductionForEdit(response.data.introduction);
-      // setFileForEdit(response.data.profilePicture === "" ? null : response.data.profilePicture);
+      try {
+        const response = await axios.get(`/user/${userId}`);
+        setUser(response.data);
+        setUsernameForEdit(response.data.username);
+        setIntroductionForEdit(response.data.introduction);
+      } catch(err) {
+        alert("エラーが発生しました");
+        console.log(err);
+      }
+      
+
     }
     fetchUser();
 

@@ -10,8 +10,12 @@ import cors from "cors";
 import { uploadRouter } from './routes/upload';
 import path from 'path';
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//corsの設定
+const allowedOrigins:string[] = ["http://localhost:3001"];
+const options = {
+    origin: allowedOrigins,
+};
+app.use(cors(options));
 
 //mongoDBと接続
 const mongoUrl: string = process.env.MONGOURL as string;
@@ -23,12 +27,8 @@ mongoose
         console.log(err);
     })
 
-//corsの設定
-const allowedOrigins:string[] = ["http://localhost:3001"];
-const options = {
-    origin: allowedOrigins,
-};
-app.use(cors(options));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/images", express.static(path.join(path.resolve(__dirname, ".."), "public/images"))) //frontendのenvファイルから静的ファイルを求めて呼び出される。__dirname + public/imagesでbackendの画像フォルダへのパスを表す。
 app.use("/api/user", userRouter());
@@ -36,7 +36,7 @@ app.use("/api/auth", authRouter());
 app.use("/api/post", postRouter());
 app.use("/api/upload", uploadRouter());
 
-app.get("/", (req, res) => { //ルート(http://localhost:3000)にアクセスしたときの挙動を設定
+app.get("/", cors(options), (req, res) => { //ルート(http://localhost:3000)にアクセスしたときの挙動を設定
     res.send("Hello Express"); //レスポンスとして、文字列を画面に出力させる
 })
 

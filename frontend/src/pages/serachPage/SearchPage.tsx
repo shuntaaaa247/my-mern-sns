@@ -10,7 +10,6 @@ export default function SearchPage() {
   const { state: authState, dispatch, } = useContext(AuthContext);
 
   return (
-    // <div style={{height: "93%"}}>
     <div className="homeContainer">
       <div className="mainContainer">
         <Sidebar />

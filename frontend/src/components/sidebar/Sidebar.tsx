@@ -73,13 +73,13 @@ export default function Sidebar() {
           <h1 className="text-2xl font-nomal font-sans mt-8 mb-5">MY_MERN_SNS</h1>
         </Link>
         <Link to="/">
-          <div className="SidebarLink rounded">
+          <div className="SidebarLink AbleLink rounded">
             <HomeOutlinedIcon fontSize="large"/>
             <span className="text-2xl font-sans">Home</span>
           </div>
         </Link>
         <Link to="/search">
-          <div className="SidebarLink">
+          <div className="SidebarLink AbleLink">
             <SearchOutlinedIcon fontSize="large"/>
             <h2 className="text-2xl font-sans">Explore</h2>
           </div>
@@ -91,13 +91,13 @@ export default function Sidebar() {
           </div>
         </Link>
         <Link to="#">
-          <div className="SidebarLink">
+          <div className="SidebarLink DisableLink">
             <EmailOutlinedIcon fontSize="large"/>
             <h2 className="text-2xl font-sans">Messages</h2>
           </div>
         </Link>
         <Link to={`/profile/${authState.user?._id}`}>
-          <div className="SidebarLink">
+          <div className="SidebarLink AbleLink">
             <PermIdentityOutlinedIcon fontSize="large"/>
             <h2 className="text-2xl font-sans">Profile</h2>
           </div>

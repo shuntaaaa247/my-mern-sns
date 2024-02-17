@@ -61,8 +61,13 @@ export default function Post({post, userId}: PostProps) {
 
   useEffect(() => {
     const getAuther = async () => {
-      const response = await axios.get(`/user/${post.auther.toString()}`);
-      setAutherInfo(response.data);
+      try {
+        const response = await axios.get(`/user/${post.auther.toString()}`);
+        setAutherInfo(response.data);
+      } catch (err) {
+        alert("エラーが発生しました");
+        console.log(err);
+      }
     }
     getAuther();
 
@@ -81,7 +86,13 @@ export default function Post({post, userId}: PostProps) {
 
     if (userId) {
       //いいねAPIを叩く
-      await axios.put(`/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
+      try {
+        await axios.put(`/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
+      } catch(err) {
+        alert("エラーが発生しました");
+        console.log(err);
+      }
+      
     };
   }
 
@@ -92,9 +103,14 @@ export default function Post({post, userId}: PostProps) {
   const handleDeleteOnModal = async () => {
     try {
       if(userId) {
-        await axios.delete(`/post/${post._id}`, {
-          data: {requesterId: userId?.toString()}
-        }) 
+        try {
+          await axios.delete(`/post/${post._id}`, {
+            data: {requesterId: userId?.toString()}
+          }) 
+        } catch (err) {
+          alert("エラーが発生しました");
+          console.log(err);
+        }
       } else {
         throw new Error("userId is not found");
       }

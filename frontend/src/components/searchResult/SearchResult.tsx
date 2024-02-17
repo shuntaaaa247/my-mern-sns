@@ -17,13 +17,24 @@ export const SearchResult = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
-      setFetchedPost(response.data);
+      try {
+        const response = await axios.get(`/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
+        setFetchedPost(response.data);
+      } catch(err) {
+        alert("エラーが発生しました");
+        console.log(err);
+      }
     }
 
     const fetchUsers = async () => {
-      const response = await axios.get(`/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
-      setFetchedUsers(response.data)
+      try {
+        const response = await axios.get(`/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
+        setFetchedUsers(response.data)
+      } catch(err) {
+        alert("エラーが発生しました");
+        console.log(err);
+      }
+      
     }
 
     fetchPosts();

@@ -29,25 +29,28 @@ export default function Timeline() {
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [posts, setPosts] = useState<IReceivedPost[]>([]);
 
-  // const [urlParams, setUrlParams] = useState(undefined);
-
   // profileページ(/profile/:id)の場合、この変数にidが入る。このidによって普通のタイムラインがプロフィールページ用のタイムラインかを分岐する。
   // /profile/:idではなくただの / だった場合(App.tsに記述したpath)、下の変数の中身はundefined
   const urlParams = useParams<{userId: string}>(); 
 
   useEffect(() => {
     const fetchPosts = async () => {
-      let response: AxiosResponse;
-      if (!urlParams.userId) {
-        response = await axios.get(`/post/timeline/${authState.user?._id.toString()}`); // APIの呼び出し
-      } else {
-        response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
+      try {
+        let response: AxiosResponse;
+        if (!urlParams.userId) {
+          response = await axios.get(`/post/timeline/${authState.user?._id.toString()}`); // APIの呼び出し
+        } else {
+          response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
+        }
+        setPosts(
+          response.data.sort((post1: IReceivedPost, post2:IReceivedPost) => {
+            return new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime()
+          })
+        ); // response本体には余分なものが含まれている。responseのdataが欲しいデータ(expressで定義したresponse)。sort()で新しい順にしている
+      } catch(err) {
+        alert("エラーが発生しました");
+        console.log(err);
       }
-      setPosts(
-        response.data.sort((post1: IReceivedPost, post2:IReceivedPost) => {
-          return new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime()
-        })
-      ); // response本体には余分なものが含まれている。responseのdataが欲しいデータ(expressで定義したresponse)。sort()で新しい順にしている
     }
     fetchPosts();
 
@@ -68,10 +71,7 @@ export default function Timeline() {
         ? <></>
         : <Post post={post} userId={authState.user?._id ?? null}/>
       ))}
-      {/* {authState.user 
-        ? <h1>{authState.user?._id.toString()}</h1>
-        : "aaa"
-      } */}
+
     </div>
   )
 }

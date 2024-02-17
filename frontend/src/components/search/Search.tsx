@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const searchText = useRef<HTMLInputElement | null>(null);
-  // const [isResultPage, setIsResultPage] = useState<boolean>(false);
   const navigate = useNavigate();
   const trendList: string[] = [
     "TypeScript", "Python", "Full Stack", "Node.js", "T3 Stack", 
@@ -19,8 +18,6 @@ export const Search = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     if(searchText.current?.value !== "" && searchText.current?.value !== null) {
       e.preventDefault();
-      // await axios.get(`/post/search/post_search?text=${searchText.current?.value}`);
-      // setIsResultPage(true);
       navigate(`/search?text=${searchText.current?.value}`);
     }
   }
