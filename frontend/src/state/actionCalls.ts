@@ -15,6 +15,7 @@ export const loginCall = async (user: ILoginCallParams, dispatch: React.Dispatch
     console.log("loginCall成功");
     console.log(res.data);
   } catch(err) {
+    console.log("本番環境デバッグ")
     console.log("loginCallでのエラー");
     console.log(err)
     dispatch({type: "LOGIN_ERROR", payload: err});
