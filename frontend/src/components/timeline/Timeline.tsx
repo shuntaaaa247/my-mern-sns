@@ -39,8 +39,10 @@ export default function Timeline() {
         let response: AxiosResponse;
         if (!urlParams.userId) {
           response = await axios.get(`/post/timeline/${authState.user?._id.toString()}`); // APIの呼び出し
+          console.log("timeline:", response.data);//開発環境デバッグ
         } else {
           response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
+          console.log("timeline", response.data);//開発環境デバッグ
         }
         console.log("APIの呼び出しはできました。")
 
