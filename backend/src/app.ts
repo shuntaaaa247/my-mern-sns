@@ -11,11 +11,11 @@ import { uploadRouter } from './routes/upload';
 import path from 'path';
 
 //corsの設定
-const allowedOrigins:string[] = ["http://localhost:3001"];
-const options = {
-    origin: allowedOrigins,
-};
-app.use(cors(options));
+// const allowedOrigins:string[] = ["http://localhost:3001"];
+// const options = {
+//     origin: allowedOrigins,
+// };
+// app.use(cors(options));
 
 //mongoDBと接続
 const mongoUrl: string = process.env.MONGOURL as string;
@@ -36,7 +36,7 @@ app.use("/api/auth", authRouter());
 app.use("/api/post", postRouter());
 app.use("/api/upload", uploadRouter());
 
-app.get("/", cors(options), (req, res) => { //ルート(http://localhost:3000)にアクセスしたときの挙動を設定
+app.get("/", (req, res) => { //ルート(http://localhost:3000)にアクセスしたときの挙動を設定
     res.send("Hello Express"); //レスポンスとして、文字列を画面に出力させる
 })
 

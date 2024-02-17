@@ -10,7 +10,8 @@ export const loginCall = async (user: ILoginCallParams, dispatch: React.Dispatch
   dispatch({ type: "LOGIN_START" });
   try {
     // const res = await axios.post("/auth/login", user);
-    const res = await axios.post("https://my-mern-sns-api.onrender.com/api/auth/login", user);
+    // const res = await axios.post("https://my-mern-sns-api.onrender.com/api/auth/login", user);
+    const res = await axios.post("http://localhost:4000/api/auth/login", user);
     dispatch({type: "LOGIN_SUCCESS", payload: res.data});
     console.log("loginCall成功");
     console.log(res.data);
