@@ -42,6 +42,7 @@ export default function Timeline() {
         } else {
           response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
         }
+        console.log("APIの呼び出しはできました。")
         setPosts(
           response.data.sort((post1: IReceivedPost, post2:IReceivedPost) => {
             return new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime()

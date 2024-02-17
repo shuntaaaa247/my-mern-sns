@@ -14,6 +14,7 @@ export default function Rightbar() {
       try {
         const response = await axios.get("/user/random/3");
         setRecomendedUsers(response.data);
+        console.log("API呼び出せました！")
       } catch(err) {
         alert("エラーが発生しました");
         console.log(err);
