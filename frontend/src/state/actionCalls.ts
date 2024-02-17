@@ -10,12 +10,12 @@ export const loginCall = async (user: ILoginCallParams, dispatch: React.Dispatch
   dispatch({ type: "LOGIN_START" });
   try {
     // const res = await axios.post("/auth/login", user);
-    const res = await axios.post("https://my-mern-sns-api.onrender.com/auth/login", user);
+    const res = await axios.post("https://my-mern-sns-api.onrender.com/api/auth/login", user);
     dispatch({type: "LOGIN_SUCCESS", payload: res.data});
     console.log("loginCall成功");
     console.log(res.data);
   } catch(err) {
-    console.log("本番環境デバッグ")
+    console.log("本番環境デバッグ2")
     console.log("loginCallでのエラー");
     console.log(err)
     dispatch({type: "LOGIN_ERROR", payload: err});
