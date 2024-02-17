@@ -11,11 +11,11 @@ import { uploadRouter } from './routes/upload';
 import path from 'path';
 
 //corsの設定
-// const allowedOrigins:string[] = ["http://localhost:3001"];
-// const options = {
-//     origin: allowedOrigins,
-// };
-// app.use(cors(options));
+const allowedOrigins:string[] = ["http://localhost:3001", "https://my-mern-sns.vercel.app"];
+const options = {
+    origin: allowedOrigins,
+};
+app.use(cors(options));
 
 //mongoDBと接続
 const mongoUrl: string = process.env.MONGOURL as string;
