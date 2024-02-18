@@ -26,6 +26,7 @@ export interface IReceivedPost extends IPost {
 }
 
 export default function Timeline() {
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [posts, setPosts] = useState<IReceivedPost[]>([]);
 
@@ -42,14 +43,14 @@ export default function Timeline() {
           // response = await axios.get(`/post/timeline/${authState.user?._id.toString()}`); // APIの呼び出し
 
           //本番環境デバッグ用
-          response = await axios.get(`https://my-mern-sns-api.onrender.com/api/post/timeline/${authState.user?._id.toString()}`)
+          response = await axios.get(`${backendBaseUrl}/post/timeline/${authState.user?._id.toString()}`)
           console.log("timeline:", response.data);//開発環境デバッグ
         } else {
           //本番用
           //response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
 
           //本番環境デバッグ用
-          response = await axios.get(`https://my-mern-sns-api.onrender.com/api/post/profile/timeline/${urlParams.userId.toString()}`);
+          response = await axios.get(`${backendBaseUrl}/api/post/profile/timeline/${urlParams.userId.toString()}`);
 
           console.log("timeline", response.data);//開発環境デバッグ
         }
