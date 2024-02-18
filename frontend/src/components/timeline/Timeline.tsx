@@ -73,14 +73,17 @@ export default function Timeline() {
 
   return(
     <div className="Timeline h-full">
-      {urlParams.userId === undefined  ? <PostShare /> : <ProfileInfo userId={urlParams.userId}/>}
+      {/* 実際の処理 */}
+      {/* {urlParams.userId === undefined  ? <PostShare /> : <ProfileInfo userId={urlParams.userId}/>}
 
       {posts.map((post: IReceivedPost) => (
         window.location.href.includes("/followers") || window.location.href.includes("/following")
         ? <></>
         : <Post post={post} userId={authState.user?._id ?? null}/>
-      ))}
+      ))} */}
 
+      {/* 本番環境用デバッグ */}
+      <button onClick={(e) => {console.log(posts)}}>responseの確認</button>
     </div>
   )
 }
