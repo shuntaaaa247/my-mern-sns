@@ -86,6 +86,7 @@ export default function PostShare() {
         ? <div className="FileDisplay">
             <label className="ml-3 px-1" onClick={() => setFile(null)}>×</label>
             <span className="text-sm px-2 rounded-md bg-stone-200">{ file ? file.name : "" }</span>
+            <span className="text-rose-600"> ! 現在、画像ファイルを投稿しても、バックエンドのストレージには保存されず、アプリ内でも表示されません。</span>
           </div>
         : <></>
       }

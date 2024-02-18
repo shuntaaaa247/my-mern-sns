@@ -141,6 +141,7 @@ export default function Sidebar() {
                   ? <div className="FileDisplay">
                       <label className="ml-3 px-1" onClick={() => setFile(null)}>×</label>
                       <span className="text-sm px-2 rounded-md bg-stone-200">{ file ? file.name : "" }</span>
+                      
                     </div>
                   : <></>
                 }
@@ -157,9 +158,10 @@ export default function Sidebar() {
                         accept=".png, .jpeg, .jpg" 
                         style={{display: "none"}} 
                         onChange={(e) => {
-                          e.target.files 
-                            ? setFile(e.target.files[0]) 
-                            : setFile(null)
+                            e.target.files 
+                              ? setFile(e.target.files[0]) 
+                              : setFile(null)
+                            alert("現在、画像ファイルを投稿しても、バックエンドのストレージには保存されず、アプリ内でも表示されません。")
                           }}
                       />
                     </label>

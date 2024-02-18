@@ -272,9 +272,10 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
                 accept=".png, .jpeg, .jpg" 
                 style={{display: "none"}} 
                 onChange={(e) => {
-                  e.target.files 
-                    ? setFileForEdit(e.target.files[0]) 
-                    : setFileForEdit(null)
+                    e.target.files 
+                      ? setFileForEdit(e.target.files[0]) 
+                      : setFileForEdit(null)
+                    alert("現在、画像ファイルを投稿しても、バックエンドのストレージには保存されず、アプリ内でも表示されません。");
                   }}
               />
               <span>new file for icon: </span>
