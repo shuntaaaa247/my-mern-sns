@@ -14,6 +14,7 @@ import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import FormatListNumberedOutlinedIcon from '@mui/icons-material/FormatListNumberedOutlined';
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { CircularProgress } from '@mui/material';
 
 
 export default function Sidebar() {
@@ -23,6 +24,7 @@ export default function Sidebar() {
   const [file, setFile] = useState<File | null>(null);
   const newPostDescription = useRef<HTMLTextAreaElement>(null);
   const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const modalContent = {
     background: "white",
@@ -35,6 +37,7 @@ export default function Sidebar() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
     e.preventDefault();
 
+    setIsLoading(true);
     if(newPostDescription.current?.value !== "" || null || undefined) {
       let newPostFileName: string = "";
     
@@ -77,6 +80,7 @@ export default function Sidebar() {
         console.log(err);
       }
     }
+    setIsLoading(false);
   }
 
   const SidebarDefault = () => {
@@ -177,7 +181,11 @@ export default function Sidebar() {
                     : <img src={PUBLIC_FOLDER + "/" + authState.user?.profilePicture} alt="アイコン" className="ProfileIconNextToInputOnModal ml-auto"/>
                   }
                   <div className="ml-auto">
-                    <button className="PostShareButton bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl px-6 py-2">Post</button>
+                    { isLoading 
+                      ? <CircularProgress />
+                      : <button className="PostShareButton bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl px-6 py-2">Post</button>
+                    }
+                    
                   </div>
                 </div>
               </form>

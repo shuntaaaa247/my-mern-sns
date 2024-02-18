@@ -4,6 +4,7 @@ import { useContext } from "react";
 import axios, { AxiosError } from "axios";
 import { loginCall } from "../../state/actionCalls";
 import { Link, useNavigate } from "react-router-dom";
+import { CircularProgress } from '@mui/material';
 
 interface INewUserInfo {
   username: string,
@@ -13,7 +14,7 @@ interface INewUserInfo {
 
 export default function Register () {
   const { state: authState, dispatch } = useContext(AuthContext);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const username = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
@@ -24,6 +25,8 @@ export default function Register () {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     if(
       username.current !== undefined
@@ -63,6 +66,7 @@ export default function Register () {
           }
         }
       }
+    setIsLoading(false);
   }
 
 
@@ -134,12 +138,17 @@ export default function Register () {
             }
             
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[10%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Register
-              </button>
+              { isLoading 
+                ? <div  className="flex w-full justify-center">
+                    <CircularProgress />
+                  </div>
+                : <button
+                    type="submit"
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[10%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >  
+                  Register
+                  </button>
+              }
             </div>
           </form>
           <Link to="/login"><p className="text-center mt-8 text-sm font-medium hover:underline">すでにアカウントをお持ちですか？</p></Link>

@@ -1,17 +1,21 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import { loginCall } from "../../state/actionCalls";
 import { Link, useNavigate } from "react-router-dom";
+import { CircularProgress } from '@mui/material';
 
 export default function Login() {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { state: authState, dispatch, } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     if(
       email.current !== undefined
@@ -31,6 +35,8 @@ export default function Login() {
         navigate("/")
       }
     }
+
+    setIsLoading(false);
   }
   return (
       <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 mx-[33%] translate-y-32 shadow-2xl rounded-2xl">
@@ -85,12 +91,18 @@ export default function Login() {
               }
             </p>
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[10%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
+              { isLoading 
+                ? <div  className="flex w-full justify-center">
+                    <CircularProgress />
+                  </div>
+                  
+                : <button
+                    type="submit"
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-[10%] mb-[3%] text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Sign in
+                  </button>
+                }
             </div>
           </form>
           <Link to="/register"><p className="text-center mt-8 text-sm font-medium hover:underline">アカウントをお持ちではありませんか？</p></Link>

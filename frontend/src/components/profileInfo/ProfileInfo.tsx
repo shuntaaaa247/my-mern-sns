@@ -8,6 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { AuthContext } from "../../state/AuthContext";
 import { UserList } from "../userList/UserList";
 import { Link, useNavigate } from "react-router-dom";
+import { CircularProgress } from '@mui/material';
 
 interface ProfileInfoProsps {
   userId: string;
@@ -57,6 +58,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   const [user, setUser] = useState<IReceivedUser>(dummyUser);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //editのモーダルでusername,introductionを入力できるようにするため(valueをこれに設定しないと再レンダリングの関係でinput,textareaタグに入力できなくなる)
   const [usernameForEdit, setUsernameForEdit] = useState<string | undefined>(user.username); 
@@ -81,6 +83,9 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   //userの編集
   const handleEditSave = async () => {
     let newIconFileName: string = "";
+
+    setIsLoading(true);
+
     if(fileForEdit) {
       const data: FormData = new FormData();
       newIconFileName = Date.now().toString() +"_" + fileForEdit.name;
@@ -134,6 +139,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
       console.log(err);
       alert("編集に失敗しました");
     }
+    setIsLoading(false);
     window.location.reload(); //画面をリロード
   }
 
@@ -244,7 +250,11 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
           <div className="flex justify-between mb-1">
             <span><ClearIcon onClick={closeModal} /></span>
             <span className="text-3xl">Edit Profile</span>
-            <button onClick={() => handleEditSave()} className="text-lg bg-stone-800 text-white px-3 rounded-3xl mb-1 hover:bg-stone-500">Save</button>
+            { isLoading 
+              ? <CircularProgress />
+              : <button onClick={() => {if(usernameForEdit !== "") { handleEditSave() }}} className="text-lg bg-stone-800 text-white px-3 rounded-3xl mb-1 hover:bg-stone-500">Save</button>
+            }
+            
           </div>
           <form className="EditForm">
             <div className="userIconEditArea">

@@ -7,6 +7,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { useRef, useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../state/AuthContext";
+import { CircularProgress } from '@mui/material';
 
 
 export default function PostShare() {
@@ -19,8 +20,12 @@ export default function PostShare() {
 
   const [file, setFile] = useState<File | null>(null);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     if(newPostDescription.current?.value !== "" || null || undefined) {
       let newPostFileName: string = "";
@@ -64,6 +69,8 @@ export default function PostShare() {
         console.log(err);
       }
     }  
+
+    setIsLoading(false);
 
   }
   return(
@@ -115,9 +122,12 @@ export default function PostShare() {
           <LocationOnOutlinedIcon />
         </div>
 
-        <div className="PostShareButtonArea">
-          <button className="PostShareButton bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl px-6 py-2 mr-3 translate-y-0.5">Post</button>
-        </div>
+        { isLoading
+          ? <CircularProgress />
+          : <div className="PostShareButtonArea">
+              <button className="PostShareButton bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl px-6 py-2 mr-3 translate-y-0.5">Post</button>
+            </div>
+        }
       </div>
     </form>
   )
