@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { AuthContext } from "../../state/AuthContext";
 import { useContext } from "react";
 import axios, { AxiosError } from "axios";
@@ -22,6 +22,10 @@ export default function Register () {
   const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    alert("本SNSはプログラミング学習中の初心者が作成したものです。セキュリティが万全ではない可能性があります。普段使用しているパスワードでの登録はお控えください。");
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
