@@ -11,7 +11,7 @@ import { uploadRouter } from './routes/upload';
 import path from 'path';
 
 //corsの設定
-const allowedOrigins:string[] = ["http://localhost:3001", "https://my-mern-sns.vercel.app", "https://my-mern-et7ts34za-shuntaaaa247.vercel.app"];
+const allowedOrigins:string[] = ["http://localhost:3001", "https://my-mern-sns.vercel.app", "https://my-mern-2xh6o6snv-shuntaaaa247.vercel.app"];
 const options = {
     origin: allowedOrigins,
 };
