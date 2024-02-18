@@ -69,8 +69,8 @@ export default function Rightbar() {
       <div className="w-[90%] bg-stone-100 rounded-3xl ml-auto mr-auto mt-[5%]">
         <p className="text-3xl font-semibold pt-4 pl-5">Who to follow</p>
         <ul className="ml-[5%] pb-5">
-          {/* <a href={`${FRONTEND_URL}/profile/${recomendedUsers[0]?._id}`}> */}
-          <Link to={`/profile/${recomendedUsers[0]?._id}`}>
+          <a href={`${FRONTEND_URL}/profile/${recomendedUsers[0]?._id}`}>
+          {/* <Link to={`/profile/${recomendedUsers[0]?._id}`}> */}
             <li className="flex mt-2 mb-2">
               { recomendedUsers[0]?.profilePicture === "" 
                 ? <img src={PUBLIC_FOLDER + "/" + "default_user_icon.png"} alt="デフォルトユーザーアイコン" className="ProfileIconOnRightbar"/> 
@@ -78,8 +78,8 @@ export default function Rightbar() {
               }
               <span className="mt-auto mb-auto">{ recomendedUsers[0]?.username.toString() }</span>
             </li>
-          </Link>
-          {/* </a> */}
+          {/* </Link> */}
+          </a>
           <a href={`${FRONTEND_URL}/profile/${recomendedUsers[1]?._id}`}>
             <li className="flex mt-2 mb-2">
               { recomendedUsers[1]?.profilePicture === "" 
