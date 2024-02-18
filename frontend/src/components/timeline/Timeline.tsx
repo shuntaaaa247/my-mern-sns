@@ -56,11 +56,11 @@ export default function Timeline() {
         console.log("APIの呼び出しはできました。")
 
         //実際の処理
-        // setPosts( 
-        //   response.data.sort((post1: IReceivedPost, post2:IReceivedPost) => {
-        //     return new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime()
-        //   })
-        // ); 
+        setPosts( 
+          response.data.sort((post1: IReceivedPost, post2:IReceivedPost) => {
+            return new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime()
+          })
+        ); 
 
         //本番環境のデバッグのため、一時的においたコード
         setPosts(response.data)
@@ -83,16 +83,16 @@ export default function Timeline() {
   return(
     <div className="Timeline h-full">
       {/* 実際の処理 */}
-      {/* {urlParams.userId === undefined  ? <PostShare /> : <ProfileInfo userId={urlParams.userId}/>}
+      {urlParams.userId === undefined  ? <PostShare /> : <ProfileInfo userId={urlParams.userId}/>}
 
       {posts.map((post: IReceivedPost) => (
         window.location.href.includes("/followers") || window.location.href.includes("/following")
         ? <></>
         : <Post post={post} userId={authState.user?._id ?? null}/>
-      ))} */}
+      ))}
 
       {/* 本番環境用デバッグ */}
-      <button onClick={(e) => {console.log(posts)}}>responseの確認</button>
+      {/* <button onClick={(e) => {console.log(posts)}}>responseの確認</button> */}
     </div>
   )
 }
