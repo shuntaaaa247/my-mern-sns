@@ -24,6 +24,7 @@ interface PostProps {
 
 export default function Post({post, userId}: PostProps) {
   const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
   const [autherInfo, setAutherInfo] = useState<IUser>();
   const [likeNum, setLikeNum] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -62,7 +63,11 @@ export default function Post({post, userId}: PostProps) {
   useEffect(() => {
     const getAuther = async () => {
       try {
-        const response = await axios.get(`/user/${post.auther.toString()}`);
+        //本番用
+        //const response = await axios.get(`/user/${post.auther.toString()}`);
+
+        //本番環境デバッグ用
+        const response = await axios.get(`${backendBaseUrl}/user/${post.auther.toString()}`);
         setAutherInfo(response.data);
       } catch (err) {
         alert("エラーが発生しました");
@@ -87,7 +92,11 @@ export default function Post({post, userId}: PostProps) {
     if (userId) {
       //いいねAPIを叩く
       try {
-        await axios.put(`/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
+        //本番環境用
+        //await axios.put(`/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
+
+        //本番環境デバッグ用
+        await axios.put(`${backendBaseUrl}/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
       } catch(err) {
         alert("エラーが発生しました");
         console.log(err);
@@ -104,7 +113,13 @@ export default function Post({post, userId}: PostProps) {
     try {
       if(userId) {
         try {
-          await axios.delete(`/post/${post._id}`, {
+          //本番用
+          // await axios.delete(`/post/${post._id}`, {
+          //   data: {requesterId: userId?.toString()}
+          // }) 
+
+          //本番環境デバッグ
+          await axios.delete(`${backendBaseUrl}/post/${post._id}`, {
             data: {requesterId: userId?.toString()}
           }) 
         } catch (err) {
