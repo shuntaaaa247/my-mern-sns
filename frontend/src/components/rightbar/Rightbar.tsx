@@ -14,10 +14,10 @@ export default function Rightbar() {
     const fetchRandomUsers = async() => {
       setRecomendedUsers([]);
       try {
-        //本番環境用
+        //開発環境
         // const response = await axios.get("/user/random/3");
 
-        //本番環境用デバッグ
+        //本番環境
         const response = await axios.get(`${backendBaseUrl}/user/random/3`);
 
         setRecomendedUsers(response.data);

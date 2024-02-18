@@ -10,12 +10,12 @@ export const loginCall = async (user: ILoginCallParams, dispatch: React.Dispatch
   console.log("loginCallが呼ばれました")
   dispatch({ type: "LOGIN_START" });
   try {
-    //本番環境用
+    //開発環境
     // const res = await axios.post("/auth/login", user);
     //または
     //const res = await axios.post("https://my-mern-sns-api.onrender.com/api/auth/login", user);
 
-    //本番環境用デバッグ
+    //本番環境
     const res = await axios.post(`${backendBaseUrl}/auth/login`, user);
 
     // const res = await axios.post("http://localhost:4000/api/auth/login", user);

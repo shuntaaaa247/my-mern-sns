@@ -63,10 +63,10 @@ export default function Post({post, userId}: PostProps) {
   useEffect(() => {
     const getAuther = async () => {
       try {
-        //本番用
+        //開発段階
         //const response = await axios.get(`/user/${post.auther.toString()}`);
 
-        //本番環境デバッグ用
+        //本番環境
         const response = await axios.get(`${backendBaseUrl}/user/${post.auther.toString()}`);
         setAutherInfo(response.data);
       } catch (err) {
@@ -92,10 +92,10 @@ export default function Post({post, userId}: PostProps) {
     if (userId) {
       //いいねAPIを叩く
       try {
-        //本番環境用
+        //開発環境
         //await axios.put(`/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
 
-        //本番環境デバッグ用
+        //本番環境
         await axios.put(`${backendBaseUrl}/post/${post._id.toString()}/like`, {requesterId: userId.toString()});
       } catch(err) {
         alert("エラーが発生しました");
@@ -113,12 +113,12 @@ export default function Post({post, userId}: PostProps) {
     try {
       if(userId) {
         try {
-          //本番用
+          //開発環境
           // await axios.delete(`/post/${post._id}`, {
           //   data: {requesterId: userId?.toString()}
           // }) 
 
-          //本番環境デバッグ
+          //本番環境
           await axios.delete(`${backendBaseUrl}/post/${post._id}`, {
             data: {requesterId: userId?.toString()}
           }) 

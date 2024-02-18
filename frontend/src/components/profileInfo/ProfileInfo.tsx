@@ -88,10 +88,10 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
       data.append("file", fileForEdit);
 
       try {
-        //本番環境
+        //開発環境
         //await axios.post("/upload", data);
 
-        //本番環境用デバッグ
+        //本番環境
         await axios.post(`${backendBaseUrl}/upload`, data);
       } catch(err) {
         console.log(err);
@@ -100,7 +100,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
 
     try {
       if(fileForEdit) {
-        //本番環境用
+        //開発環境
         // await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
         //   _id: authState.user?._id,
         //   username: usernameForEdit,
@@ -108,7 +108,7 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
         //   profilePicture: newIconFileName
         // });
 
-        //本番環境用デバッグ
+        //本番環境
         await axios.put(`${backendBaseUrl}/user/${authState.user?._id}`, { //user編集APIを叩く
           _id: authState.user?._id,
           username: usernameForEdit,
@@ -116,14 +116,14 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
           profilePicture: newIconFileName
         });
       } else {
-        //本番環境用
+        //開発環境
         // await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
         //   _id: authState.user?._id,
         //   username: usernameForEdit,
         //   introduction: introductionForEdit,
         // });
 
-        //本番環境用デバッグ
+        //本番環境
         await axios.put(`${backendBaseUrl}/user/${authState.user?._id}`, { //user編集APIを叩く
           _id: authState.user?._id,
           username: usernameForEdit,
@@ -140,10 +140,10 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   //フォロー、フォロー解除
   const handleFollow = async () => {
     try {
-      //本番環境用
+      //開発環境
       // await axios.put(`/user/${user._id.toString()}/follow`, {requesterId: authState.user?._id.toString()});
 
-      //本番環境用デバッグ
+      //本番環境
       await axios.put(`${backendBaseUrl}/user/${user._id.toString()}/follow`, {requesterId: authState.user?._id.toString()});
       window.location.reload();
     } catch(err) {
@@ -164,10 +164,10 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        //本番環境用
+        //開発環境
         //const response = await axios.get(`/user/${userId}`);
 
-        //本番環境用デバッグ
+        //本番環境
         const response = await axios.get(`${backendBaseUrl}/user/${userId}`);
         setUser(response.data);
         setUsernameForEdit(response.data.username);

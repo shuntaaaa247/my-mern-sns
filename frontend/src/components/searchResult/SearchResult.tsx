@@ -19,10 +19,10 @@ export const SearchResult = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        //本番環境用
+        //開発環境
         //const response = await axios.get(`/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
 
-        //本番環境用デバッグ
+        //本番環境
         const response = await axios.get(`${backendBaseUrl}/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
         setFetchedPost(response.data);
       } catch(err) {
@@ -33,10 +33,10 @@ export const SearchResult = () => {
 
     const fetchUsers = async () => {
       try {
-        //本番環境用
+        //開発環境
         //const response = await axios.get(`/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
 
-        //本番環境用デバッグ
+        //本番環境
         const response = await axios.get(`${backendBaseUrl}/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
         setFetchedUsers(response.data)
       } catch(err) {

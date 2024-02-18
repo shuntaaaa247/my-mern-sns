@@ -39,20 +39,20 @@ export const UserList = () => {
     try {
       if(targetUser?.followers?.length && window.location.href.includes("followers")) {
         for(let i: number = 0; i < targetUser?.followers?.length; i ++) {
-          //本番環境用
+          //開発環境
           //const response = await axios.get(`/user/${targetUser.followers[i]}`);
 
-          //本番環境用デバッグ
+          //本番環境
           const response = await axios.get(`${backendBaseUrl}/user/${targetUser.followers[i]}`);
           tempList.push(response.data);
         }
         setFetchedUsers(tempList);
       } else if(targetUser?.followers?.length && window.location.href.includes("following")) {
         for(let i: number = 0; i < targetUser?.followings?.length; i ++) {
-          //本番環境用
+          //開発環境
           //const response = await axios.get(`/user/${targetUser.followings[i]}`);
 
-          //本番環境用デバッグ
+          //本番環境
           const response = await axios.get(`${backendBaseUrl}/user/${targetUser.followings[i]}`);
 
           tempList.push(response.data);

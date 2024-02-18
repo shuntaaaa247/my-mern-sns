@@ -39,17 +39,17 @@ export default function Timeline() {
       try {
         let response: AxiosResponse;
         if (!urlParams.userId) {
-          //本番用
+          //開発環境
           // response = await axios.get(`/post/timeline/${authState.user?._id.toString()}`); // APIの呼び出し
 
-          //本番環境デバッグ用
+          //本番環境
           response = await axios.get(`${backendBaseUrl}/post/timeline/${authState.user?._id.toString()}`)
           console.log("timeline:", response.data);//開発環境デバッグ
         } else {
-          //本番用
+          //開発環境
           //response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
 
-          //本番環境デバッグ用
+          //本番環境
           response = await axios.get(`${backendBaseUrl}/post/profile/timeline/${urlParams.userId.toString()}`);
 
           console.log("timeline", response.data);//開発環境デバッグ
@@ -64,7 +64,7 @@ export default function Timeline() {
         ); 
 
         //本番環境のデバッグのため、一時的においたコード
-        setPosts(response.data)
+        // setPosts(response.data)
         // response本体には余分なものが含まれている。responseのdataが欲しいデータ(expressで定義したresponse)。sort()で新しい順にしている
       } catch(err) {
         alert("エラーが発生しました");

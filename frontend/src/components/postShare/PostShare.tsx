@@ -32,10 +32,10 @@ export default function PostShare() {
         data.append("file", file);
 
         try {
-          //本番用
+          //開発環境
           //await axios.post("/upload", data);
 
-          //本番環境デバッグ
+          //本番環境
           await axios.post(`${backendBaseUrl}/upload`, data);
         } catch(err) {
           console.log(err);
@@ -43,14 +43,14 @@ export default function PostShare() {
       }
 
       try {
-        //本番環境
+        //開発環境
         // await axios.post("/post/", {
         //   auther: authState.user?._id,
         //   description: newPostDescription.current?.value,
         //   img: newPostFileName,
         // })
 
-        //本番環境用デバッグ
+        //本番環境
         await axios.post(`${backendBaseUrl}/post/`, {
           auther: authState.user?._id,
           description: newPostDescription.current?.value,

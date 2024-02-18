@@ -40,10 +40,10 @@ export default function Register () {
         }
 
         try {
-          //本番環境用
+          //開発環境
           // await axios.post("/auth/register", newUserInfo) //register APIの呼び出し
 
-          //本番環境用デバッグ
+          //本番環境
           await axios.post(`${backendBaseUrl}/auth/register`, newUserInfo) //register APIの呼び出し
 
 
