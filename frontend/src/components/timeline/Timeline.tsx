@@ -50,7 +50,7 @@ export default function Timeline() {
           //response = await axios.get(`/post/profile/timeline/${urlParams.userId.toString()}`); // APIの呼び出し
 
           //本番環境デバッグ用
-          response = await axios.get(`${backendBaseUrl}/api/post/profile/timeline/${urlParams.userId.toString()}`);
+          response = await axios.get(`${backendBaseUrl}/post/profile/timeline/${urlParams.userId.toString()}`);
 
           console.log("timeline", response.data);//開発環境デバッグ
         }
@@ -68,6 +68,7 @@ export default function Timeline() {
         // response本体には余分なものが含まれている。responseのdataが欲しいデータ(expressで定義したresponse)。sort()で新しい順にしている
       } catch(err) {
         alert("エラーが発生しました");
+        alert(`backendBaseUrl = ${backendBaseUrl}`);
         console.log(err);
       }
     }
