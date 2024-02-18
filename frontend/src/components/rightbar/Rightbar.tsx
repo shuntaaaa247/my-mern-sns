@@ -7,12 +7,18 @@ export default function Rightbar() {
   const [recomendedUsers, setRecomendedUsers] = useState<IUser[]>([]);
   const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
   const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
   useEffect(()=> {
     const fetchRandomUsers = async() => {
       setRecomendedUsers([]);
       try {
-        const response = await axios.get("/user/random/3");
+        //本番環境用
+        // const response = await axios.get("/user/random/3");
+
+        //本番環境用デバッグ
+        const response = await axios.get(`${backendBaseUrl}/user/random/3`);
+
         setRecomendedUsers(response.data);
         console.log("API呼び出せました！")
       } catch(err) {

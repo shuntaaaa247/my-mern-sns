@@ -13,6 +13,7 @@ export const UserList = () => {
   const urlParams = useParams<{userId: string}>(); 
   const navigate = useNavigate();
   const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
   useEffect(() => {
     const fetchTargetUser = async () => {
@@ -38,13 +39,22 @@ export const UserList = () => {
     try {
       if(targetUser?.followers?.length && window.location.href.includes("followers")) {
         for(let i: number = 0; i < targetUser?.followers?.length; i ++) {
-          const response = await axios.get(`/user/${targetUser.followers[i]}`);
+          //本番環境用
+          //const response = await axios.get(`/user/${targetUser.followers[i]}`);
+
+          //本番環境用デバッグ
+          const response = await axios.get(`${backendBaseUrl}/user/${targetUser.followers[i]}`);
           tempList.push(response.data);
         }
         setFetchedUsers(tempList);
       } else if(targetUser?.followers?.length && window.location.href.includes("following")) {
         for(let i: number = 0; i < targetUser?.followings?.length; i ++) {
-          const response = await axios.get(`/user/${targetUser.followings[i]}`);
+          //本番環境用
+          //const response = await axios.get(`/user/${targetUser.followings[i]}`);
+
+          //本番環境用デバッグ
+          const response = await axios.get(`${backendBaseUrl}/user/${targetUser.followings[i]}`);
+
           tempList.push(response.data);
         }
         setFetchedUsers(tempList);

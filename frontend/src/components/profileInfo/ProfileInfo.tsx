@@ -52,6 +52,7 @@ Modal.setAppElement("body");
 
 export default function ProfileInfo({userId}: ProfileInfoProsps) {
   const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
   const { state: authState, dispatch, } = useContext(AuthContext);
   const [user, setUser] = useState<IReceivedUser>(dummyUser);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
@@ -87,7 +88,11 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
       data.append("file", fileForEdit);
 
       try {
-        await axios.post("/upload", data);
+        //本番環境
+        //await axios.post("/upload", data);
+
+        //本番環境用デバッグ
+        await axios.post(`${backendBaseUrl}/upload`, data);
       } catch(err) {
         console.log(err);
       }
@@ -95,14 +100,31 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
 
     try {
       if(fileForEdit) {
-        await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
+        //本番環境用
+        // await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
+        //   _id: authState.user?._id,
+        //   username: usernameForEdit,
+        //   introduction: introductionForEdit,
+        //   profilePicture: newIconFileName
+        // });
+
+        //本番環境用デバッグ
+        await axios.put(`${backendBaseUrl}/user/${authState.user?._id}`, { //user編集APIを叩く
           _id: authState.user?._id,
           username: usernameForEdit,
           introduction: introductionForEdit,
           profilePicture: newIconFileName
         });
       } else {
-        await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
+        //本番環境用
+        // await axios.put(`/user/${authState.user?._id}`, { //user編集APIを叩く
+        //   _id: authState.user?._id,
+        //   username: usernameForEdit,
+        //   introduction: introductionForEdit,
+        // });
+
+        //本番環境用デバッグ
+        await axios.put(`${backendBaseUrl}/user/${authState.user?._id}`, { //user編集APIを叩く
           _id: authState.user?._id,
           username: usernameForEdit,
           introduction: introductionForEdit,
@@ -118,7 +140,11 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   //フォロー、フォロー解除
   const handleFollow = async () => {
     try {
-      await axios.put(`/user/${user._id.toString()}/follow`, {requesterId: authState.user?._id.toString()});
+      //本番環境用
+      // await axios.put(`/user/${user._id.toString()}/follow`, {requesterId: authState.user?._id.toString()});
+
+      //本番環境用デバッグ
+      await axios.put(`${backendBaseUrl}/user/${user._id.toString()}/follow`, {requesterId: authState.user?._id.toString()});
       window.location.reload();
     } catch(err) {
       console.log(err);
@@ -138,7 +164,11 @@ export default function ProfileInfo({userId}: ProfileInfoProsps) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`/user/${userId}`);
+        //本番環境用
+        //const response = await axios.get(`/user/${userId}`);
+
+        //本番環境用デバッグ
+        const response = await axios.get(`${backendBaseUrl}/user/${userId}`);
         setUser(response.data);
         setUsernameForEdit(response.data.username);
         setIntroductionForEdit(response.data.introduction);

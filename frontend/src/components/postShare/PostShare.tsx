@@ -11,6 +11,7 @@ import { AuthContext } from "../../state/AuthContext";
 
 export default function PostShare() {
   const PUBLIC_FOLDER = process.env.REACT_APP_BACKEND_PUBLIC_FOLDER;
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
   const { state: authState, dispatch, } = useContext(AuthContext);
 
@@ -31,14 +32,26 @@ export default function PostShare() {
         data.append("file", file);
 
         try {
-          await axios.post("/upload", data);
+          //本番用
+          //await axios.post("/upload", data);
+
+          //本番環境デバッグ
+          await axios.post(`${backendBaseUrl}/upload`, data);
         } catch(err) {
           console.log(err);
         }
       }
 
       try {
-        await axios.post("/post/", {
+        //本番環境
+        // await axios.post("/post/", {
+        //   auther: authState.user?._id,
+        //   description: newPostDescription.current?.value,
+        //   img: newPostFileName,
+        // })
+
+        //本番環境用デバッグ
+        await axios.post(`${backendBaseUrl}/post/`, {
           auther: authState.user?._id,
           description: newPostDescription.current?.value,
           img: newPostFileName,

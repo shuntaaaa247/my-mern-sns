@@ -18,6 +18,7 @@ export default function Register () {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [isEmailError, setIsEmailError] = useState<boolean>(false);
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
   const navigate = useNavigate();
 
@@ -39,7 +40,12 @@ export default function Register () {
         }
 
         try {
-          await axios.post("/auth/register", newUserInfo) //register APIの呼び出し
+          //本番環境用
+          // await axios.post("/auth/register", newUserInfo) //register APIの呼び出し
+
+          //本番環境用デバッグ
+          await axios.post(`${backendBaseUrl}/auth/register`, newUserInfo) //register APIの呼び出し
+
 
           loginCall({
             email: newUserInfo.email,

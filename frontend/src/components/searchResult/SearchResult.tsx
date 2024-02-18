@@ -14,11 +14,16 @@ export const SearchResult = () => {
   const [fetchedPosts, setFetchedPost] = useState<IReceivedPost[]>([]);
   const [fetchedUsers, setFetchedUsers] = useState<IReceivedUser[]>([]);
   const [mode, setMode] = useState<string>("posts");
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
+        //本番環境用
+        //const response = await axios.get(`/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
+
+        //本番環境用デバッグ
+        const response = await axios.get(`${backendBaseUrl}/post/search/post_search?text=${window.location.href.split("search?text=")[1]}`);
         setFetchedPost(response.data);
       } catch(err) {
         alert("エラーが発生しました");
@@ -28,7 +33,11 @@ export const SearchResult = () => {
 
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
+        //本番環境用
+        //const response = await axios.get(`/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
+
+        //本番環境用デバッグ
+        const response = await axios.get(`${backendBaseUrl}/user/search/user_search?text=${window.location.href.split("search?text=")[1]}`)
         setFetchedUsers(response.data)
       } catch(err) {
         alert("エラーが発生しました");
